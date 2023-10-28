@@ -1,30 +1,25 @@
 ﻿namespace DF.Controller
 {
     using DF.Input;
-    using System.Collections;
     using UnityEngine;
-    using UnityEngineTimers;
 
-    public abstract class EnemyController
+    public class EnemyController : MonoBehaviour
     {
-        protected Enemy _enemyGO = default;
+        private const float ENEMY_SPEED = 0.1f;
+        [SerializeField]
+        private Enemy _enemy = default;
         protected bool isMove = true;
 
         private float _speed;
 
-        protected void StartMovement()
+        private void Start()
         {
-            _speed = _enemyGO.EnemyConfig.Speed;
-            Coroutines.StartRoutine(MovementCoroutine());
+            _speed = ENEMY_SPEED;
         }
 
-        private IEnumerator MovementCoroutine()
+        protected void FixedUpdate()
         {
-            while (isMove)
-            {
-                yield return new WaitForFixedUpdate();
-                _enemyGO.transform.position = new Vector3(_enemyGO.transform.position.x, _enemyGO.transform.position.y - _speed, 0);
-            }
+            _enemy.transform.position = new Vector3(_enemy.transform.position.x, _enemy.transform.position.y - _speed, 0);
         }
     }
 }

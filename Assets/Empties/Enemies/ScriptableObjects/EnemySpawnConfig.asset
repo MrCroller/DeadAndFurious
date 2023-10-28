@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134652019e50aca4391731dfecf5c56f, type: 3}
   m_Name: EnemySpawnConfig
   m_EditorClassIdentifier: 
-  _enemiesConfig: {fileID: 11400000, guid: 4d99a1cc9835a0d4eb63e47cfc3f121e, type: 2}
+  _enemyPrefab: {fileID: 6769748285513715285, guid: f3d988d3994f31644bcf768c3e009b73, type: 3}
+  _carClasses: {fileID: 11400000, guid: 8cac032ad1cc8a14cbf12b3630b2c785, type: 2}
+  _companiesConfig: {fileID: 11400000, guid: a6187d4e11ee7f44db81de1b27959592, type: 2}
   _spawnTime: 2
