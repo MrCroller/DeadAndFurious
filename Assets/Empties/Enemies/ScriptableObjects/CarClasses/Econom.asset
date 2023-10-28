@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f254f72bff7674b8dbcb1aff0dbefc, type: 3}
+  m_Name: Econom
+  m_EditorClassIdentifier: 
+  _carClass: 0
+  _shipSprite: {fileID: -1444574295, guid: 1655dab38756bba4392a8f8a0c58efd4, type: 3}
+  _expPoint: 1

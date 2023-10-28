@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba6157397ab271489e4829b1fe15058, type: 3}
+  m_Name: EnemySpawnConfig 1
+  m_EditorClassIdentifier: 
+  _enemyPrefab: {fileID: 6769748285513715285, guid: f3d988d3994f31644bcf768c3e009b73, type: 3}
+  _carClasses: {fileID: 11400000, guid: 8cac032ad1cc8a14cbf12b3630b2c785, type: 2}
+  _companiesConfig: {fileID: 11400000, guid: a6187d4e11ee7f44db81de1b27959592, type: 2}
+  _spawnTime: 2

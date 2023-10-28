@@ -20,6 +20,15 @@
                     "id": "2f0f29ef-f48c-4030-b098-ae7ebbe7d123",
                     "expectedControlType": "Button",
                     "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenOption",
+                    "type": "Button",
+                    "id": "020fc866-0142-4f9e-8891-d134c596fb8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 }
@@ -145,6 +154,17 @@
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "08488291-1536-474a-9c84-3a8cd00c683e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenOption",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -153,7 +173,7 @@
             "id": "a091d907-e7c8-4f52-9c39-94f599d73ddb",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "OpenOption",
                     "type": "Button",
                     "id": "185101d4-da71-412f-811e-ac1771ff077a",
                     "expectedControlType": "Button",
@@ -166,11 +186,11 @@
                 {
                     "name": "",
                     "id": "2fb778d3-3f86-4e6e-a39b-8b0cb5975708",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "OpenOption",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -45,7 +45,7 @@ namespace UnityEngineTimers
         /// </summary>
         /// <param name="method">Method on the end of the timer to be run</param>
         /// <param name="time">Timer running time</param>
-        public IStop Start(UnityAction method, float time)
+        public IStop Start(UnityAction method, float time, bool unscale)
         {
             if (IsRunning)
             {
@@ -53,7 +53,7 @@ namespace UnityEngineTimers
             }
 
             OnEndTime.AddListener(method);
-            _coroutine = Coroutines.StartRoutine(Ticker(time));
+            _coroutine = Coroutines.StartRoutine(unscale ? UnscaleTicker(time) : Ticker(time));
             return this;
         }
 
@@ -63,7 +63,7 @@ namespace UnityEngineTimers
         /// <param name="method">Method on the end of the timer to be run</param>
         /// <param name="timeTickMethod">Method returning progress values from 0.0f to 1.0f</param>
         /// <param name="time">Timer running time</param>
-        public IStop Start(UnityAction method, UnityAction<float> timeTickMethod, float time)
+        public IStop Start(UnityAction method, UnityAction<float> timeTickMethod, float time, bool unscale)
         {
             if (IsRunning)
             {
@@ -72,7 +72,7 @@ namespace UnityEngineTimers
 
             OnEndTime.AddListener(method);
             OnProgressTick.AddListener(timeTickMethod);
-            _coroutine = Coroutines.StartRoutine(Ticker(time));
+            _coroutine = Coroutines.StartRoutine(unscale ? UnscaleTicker(time) : Ticker(time));
             return this;
         }
 
@@ -81,7 +81,7 @@ namespace UnityEngineTimers
         /// </summary>
         /// <param name="timeTickMethod">Method returning progress values from 0.0f to 1.0f</param>
         /// <param name="time">Timer running time</param>
-        public IStop Start(UnityAction<float> timeTickMethod, float time)
+        public IStop Start(UnityAction<float> timeTickMethod, float time, bool unscale)
         {
             if (IsRunning)
             {
@@ -89,7 +89,7 @@ namespace UnityEngineTimers
             }
 
             OnProgressTick.AddListener(timeTickMethod);
-            _coroutine = Coroutines.StartRoutine(Ticker(time));
+            _coroutine = Coroutines.StartRoutine(unscale ? UnscaleTicker(time) : Ticker(time));
             return this;
         }
 
@@ -113,8 +113,23 @@ namespace UnityEngineTimers
             OnProgressTick?.RemoveAllListeners();
             OnEndTime?.RemoveAllListeners();
             _coroutine = null;
+        }
 
+        private IEnumerator UnscaleTicker(float maxTime)
+        {
+            float time = maxTime;
+            do
+            {
+                time -= Time.unscaledDeltaTime;
+                OnProgressTick?.Invoke(Mathf.Lerp(0.0f, 1.0f, (maxTime - time) / maxTime));
+                yield return null;
+            } while (time > 0.0f);
 
+            OnEndTime?.Invoke();
+
+            OnProgressTick?.RemoveAllListeners();
+            OnEndTime?.RemoveAllListeners();
+            _coroutine = null;
         }
 
         #endregion

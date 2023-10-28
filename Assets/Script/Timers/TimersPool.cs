@@ -64,9 +64,12 @@ namespace UnityEngineTimers
 
         #region Methods
 
-        public IStop StartTimer(UnityAction method, float time) => Timer.Start(method, time);
-        public IStop StartTimer(UnityAction<float> timeTickMethod, float time) => Timer.Start(timeTickMethod, time);
-        public IStop StartTimer(UnityAction method, UnityAction<float> timeTickMethod, float time) => Timer.Start(method, timeTickMethod, time);
+        public IStop StartTimer(UnityAction method, float time, bool unscale = false) => 
+            Timer.Start(method, time, unscale);
+        public IStop StartTimer(UnityAction<float> timeTickMethod, float time, bool unscale = false) => 
+            Timer.Start(timeTickMethod, time, unscale);
+        public IStop StartTimer(UnityAction method, UnityAction<float> timeTickMethod, float time, bool unscale = false) => 
+            Timer.Start(method, timeTickMethod, time, unscale);
 
 
         public void Dispose()

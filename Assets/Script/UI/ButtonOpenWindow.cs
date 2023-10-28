@@ -1,7 +1,8 @@
 namespace DF.UI
 {
+    using DF.Extension;
     using UnityEngine;
-using UnityEngine.UI;
+    using UnityEngine.UI;
 
     public class ButtonOpenWindow : MonoBehaviour
     {
@@ -20,7 +21,12 @@ using UnityEngine.UI;
             {
                 _button = GetComponent<Button>();
             }
-            _button.onClick.AddListener(OpenTargetWindow);
+            _button.Add(OpenTargetWindow);
+        }
+
+        private void OnDestroy()
+        {
+            _button.Remove(OpenTargetWindow);
         }
 
         private void OpenTargetWindow()

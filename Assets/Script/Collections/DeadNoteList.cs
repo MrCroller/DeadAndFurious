@@ -12,7 +12,7 @@ namespace SEC.Helpers
     {
         public IEnumerator GetEnumerator() => dictionary.Keys.GetEnumerator();
 
-        private Dictionary<T, IStop> dictionary;
+        private readonly Dictionary<T, IStop> dictionary;
 
         public DeadNoteList()
         {

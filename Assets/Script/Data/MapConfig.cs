@@ -2,7 +2,7 @@
 
 namespace DF.Data
 {
-    [CreateAssetMenu(fileName = nameof(MapConfig), menuName = "DR/Configs/Map")]
+    [CreateAssetMenu(fileName = nameof(MapConfig), menuName = "DF/Configs/Map")]
     internal sealed class MapConfig : ScriptableObject
     {
 
