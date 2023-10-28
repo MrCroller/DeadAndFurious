@@ -11,15 +11,19 @@ namespace DF.Controller
     public sealed class EnemySpawnController : IDisposable
     {
         private EnemySpawnConfig _enemySpawnConfig = default;
+        private PlayerInput _player = default;
+        private Transform _enemyParent = default;
         private Coroutine _enemySpawnCoroutine = default;
         private bool GameEnd = false;
 
         private EnemyBuilder _enemyBuilder = default;
 
-        public EnemySpawnController(EnemySpawnConfig enemySpawnConfig)
+        public EnemySpawnController(EnemySpawnConfig enemySpawnConfig, PlayerInput player, Transform parent)
         {
+            _enemyParent = parent;
+            _player = player;
             _enemySpawnConfig = enemySpawnConfig;            
-            _enemyBuilder = new EnemyBuilder();
+            _enemyBuilder = new EnemyBuilder(_enemyParent);
         }
 
         /// <summary>
@@ -43,11 +47,9 @@ namespace DF.Controller
                 int randomCarClassID = UnityEngine.Random.Range(0, _enemySpawnConfig.CarClasses.CarClasses.Count);
                 int randomCompanyID = UnityEngine.Random.Range(0, _enemySpawnConfig.Companies.Companies.Count);
 
-                float spawnOffsetY = _enemySpawnConfig.CarClasses.CarClasses[randomCarClassID].ScaleFactor;
-                Vector3 randomSpawnPositionWithoutOffset = Camera.main.ScreenToWorldPoint(
+                Vector3 randomSpawnPosition = Camera.main.ScreenToWorldPoint(
                     new Vector3(UnityEngine.Random.Range(0f, Screen.width), Screen.height, 0));
 
-                Vector3 randomSpawnPosition = new Vector3(randomSpawnPositionWithoutOffset.x, randomSpawnPositionWithoutOffset.y + spawnOffsetY, 0);
                 SpawnEnemy(randomSpawnPosition, 
                     _enemySpawnConfig.CarClasses.CarClasses[randomCarClassID],
                     _enemySpawnConfig.Companies.Companies[randomCompanyID]);
@@ -61,7 +63,10 @@ namespace DF.Controller
                 .WithRootPrefab(_enemySpawnConfig.Enemy)
                 .WithCarClass(carClass)
                 .WithCompany(company)
-                .Build(position);
+                .Build(position, _player);
+
+            enemy.transform.position = new Vector3(position.x, position.y - enemy.transform.localScale.y, 0);
+            enemy.UpdateVisual();
         }
 
         void IDisposable.Dispose() 

@@ -2,7 +2,7 @@
 
 namespace DF.Data
 {
-    [CreateAssetMenu(fileName = nameof(PlayerConfig), menuName = "DR/Configs/Player")]
+    [CreateAssetMenu(fileName = nameof(PlayerConfig), menuName = "DF/Configs/Player")]
     public sealed class PlayerConfig : ScriptableObject
     {
 

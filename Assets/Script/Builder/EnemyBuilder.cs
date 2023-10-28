@@ -4,6 +4,7 @@ namespace DF.Builder
 {
     using DF.Data;
     using DF.Input;
+    using DF.ObjectPool;
     using UnityEngine;
     /// <summary>
     /// Билдер врагов
@@ -12,7 +13,16 @@ namespace DF.Builder
     {
         private Enemy _enemyPrefab = default;
         private CompanyConfig _companyConfig = default;
-        private CarClassConfig _carClassConfig = default; 
+        private CarClassConfig _carClassConfig = default;
+
+        private Transform _objectParent = default;
+        private ObjectPool<Enemy> _enemyObjectPool = default;
+
+        public EnemyBuilder(Transform objectParent)
+        {
+            _objectParent = objectParent;
+            _enemyObjectPool = new ObjectPool<Enemy>(_objectParent);
+        }
 
         public EnemyBuilder Reset()
         {
@@ -39,13 +49,10 @@ namespace DF.Builder
             _carClassConfig = carClassConfig;
             return this;
         }
-        public Enemy Build(Vector3 position)
+        public Enemy Build(Vector3 position, PlayerInput player)
         {
-            GameObject enemyGO = GameObject.Instantiate(_enemyPrefab.gameObject, position, Quaternion.identity);
-            Enemy enemy = enemyGO.GetComponent<Enemy>();
-            enemy.SetCarClassConfig(_carClassConfig);
-            enemy.SetCompanyConfig(_companyConfig);
-            enemy.UpdateVisual();
+            Enemy enemy = _enemyObjectPool.GetObjectFromPool(_enemyPrefab);
+            enemy.SetData(_carClassConfig, _companyConfig, player, _enemyObjectPool);
             return enemy;
         }
     }
