@@ -3,6 +3,7 @@ using System.Linq;
 using DF.Controller;
 using DF.Data;
 using DF.Interface;
+using DF.ObjectPool;
 using UnityEngine;
 
 namespace DF.Input
@@ -26,6 +27,10 @@ namespace DF.Input
         [SerializeField] private PlayerInput player;
         [SerializeField]
         private Enemy _enemyPrefab = default;
+        [SerializeField]
+        private Transform _enemyParent = default;
+        [SerializeField]
+        private Bullet _bulletPrefab = default;
 
         #endregion
 
@@ -39,6 +44,7 @@ namespace DF.Input
 
         #region Controllers
         private EnemySpawnController _enemySpawnController = default;
+        private ObjectPool<Bullet> _bulletPool = default;
 
         private List<IExecute> _executes;
         private List<IExecuteLater> _executesLaters;
@@ -62,7 +68,7 @@ namespace DF.Input
                 new PlayerController(player, playerConfig)
             };
 
-            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig);
+            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig, player, _enemyParent);
         }
 
         private void Start()

@@ -2,16 +2,16 @@ namespace DF.Data
 {
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = nameof(CarClassConfig), menuName = "DR/Configs/CarClass")]
+    [CreateAssetMenu(fileName = nameof(CarClassConfig), menuName = "DF/Configs/CarClass")]
     public class CarClassConfig : ScriptableObject
     {
         [SerializeField]
         private CarClassesEnum _carClass = default;
-        [SerializeField, Min(0)]
-        private float _scaleFactor = default;
+        [SerializeField]
+        private Sprite _shipSprite = default;
 
         public CarClassesEnum CarClass => _carClass;
-        public float ScaleFactor => _scaleFactor;
+        public Sprite ShipSprite => _shipSprite;
     }
 
     public enum CarClassesEnum

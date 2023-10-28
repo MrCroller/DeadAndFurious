@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Econom
   m_EditorClassIdentifier: 
   _carClass: 0
-  _scaleFactor: 0.5
+  _shipSprite: {fileID: 1866674055, guid: c4d5ee371a86ce94e87c7b480d67f715, type: 3}
