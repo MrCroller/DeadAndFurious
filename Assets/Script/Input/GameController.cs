@@ -113,6 +113,7 @@ namespace DF.Input
             Subscribe();
 
             _enemySpawnController.Init();
+            _playerController.Init();
         }
 
         private void Update()

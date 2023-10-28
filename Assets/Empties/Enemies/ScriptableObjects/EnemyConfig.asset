@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 482fe68c7becf5d41b76801b48d4951b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b9ce848a60b5c741a7ef09735b3913a, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
   _enemySpeed: 0.1

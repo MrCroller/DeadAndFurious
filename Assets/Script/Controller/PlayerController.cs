@@ -1,13 +1,16 @@
 ﻿namespace DF.Controller
 {
     using System;
+    using System.Collections.Generic;
     using DF.Data;
     using DF.Input;
     using DF.Interface;
     using DF.Model;
     using DF.ObjectPool;
+    using Unity.VisualScripting;
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using UnityEngineTimers;
     using PlayerInput = Input.PlayerInput;
 
     public sealed class PlayerController : IExecute, IExecuteLater, IDisposable
@@ -22,8 +25,10 @@
         private Vector2 _move;
         private Vector2 m_Velocity = Vector2.zero;
         private float _angleRotaitGun;
+        private bool _pressFlag = false;
 
-        private ObjectPool<Rigidbody2D> _bulletPool = default;
+        private Dictionary<GunConfig, ObjectPool<Rigidbody2D>> _bulletPoolMap;
+        private Transform _bulletParent;
 
         public Vector2 CursorPosition
         {
@@ -43,19 +48,33 @@
         {
             Input = input;
             _data = new PlayerModel(config);
+            _bulletParent = bulletParent;
 
+            _bulletPoolMap = new() 
+            { {_data.CurrentGun, new(_bulletParent) } };
+            
+        }
+
+        public void Init()
+        {
             Input.OnMovementEvent += OnMoveInput;
             Input.OnFireEvent     += OnFireInput;
+            Input.OnTakeGun       += TakeNewGun;
 
-            _bulletPool = new(bulletParent);
+            Input.GunObject.sprite = _data.CurrentGun.Sprite;
         }
 
         public void Dispose()
         {
             Input.OnMovementEvent -= OnMoveInput;
             Input.OnFireEvent     -= OnFireInput;
+            Input.OnTakeGun       -= TakeNewGun;
 
-            _bulletPool.Clear();
+            foreach(var pool in _bulletPoolMap.Values)
+            {
+                pool.Clear();
+            }
+            _bulletPoolMap.Clear();
         }
 
         #endregion
@@ -75,20 +94,51 @@
         {
             Input.Rigidbody.velocity = Vector2.SmoothDamp(Input.Rigidbody.velocity, _move, ref m_Velocity, _data.CurrentMovementSmoothing);
             Input.GunObject.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
+
+            OnFire();
         }
 
-        public void TakeNewGun(GunConfig gun) => _data.CurrentGun = gun;
+        public void TakeNewGun(GunConfig gun)
+        {
+            _data.CurrentGun = gun;
+            Input.GunObject.sprite = _data.CurrentGun.Sprite;
+
+            if (!_bulletPoolMap.ContainsKey(gun))
+            {
+                _bulletPoolMap.Add(gun, new(_bulletParent));
+            }
+        }
 
         private void OnMoveInput(Vector2 input)
         {
             _moveInput = input;
         }
 
-        private void OnFireInput()
+        private void OnFireInput() => _pressFlag = !_pressFlag;
+
+        private void OnFire()
         {
+            if (_data.IsGunReload || !_pressFlag) return;
+            _data.IsGunReload = true;
 
+            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.BulletPrefab, _data.CurrentGun.BulletLifeTime);
+            ResetBullet(bullet);
 
-            //Input.GunObject.transform.rotation
+            Vector2 direction = CursorPosition - (Vector2)Input.GunObject.transform.position;
+            bullet.transform.rotation = Quaternion.Euler(direction.normalized);
+
+            bullet.AddForce(direction.normalized * _data.CurrentGun.FireForse, ForceMode2D.Impulse);
+
+            TimersPool.GetInstance().StartTimer(() => { _data.IsGunReload = false; Input.ReloadBar.fillAmount = 0f; },
+                                                (float progress) => Input.ReloadBar.fillAmount = progress,
+                                                _data.CurrentGun.AttackDelay);
+        }
+
+        private void ResetBullet(Rigidbody2D bullet)
+        {
+            bullet.transform.position = Input.GunObject.transform.position;
+            bullet.velocity = Vector2.zero;
+            bullet.angularVelocity = 0f;
         }
 
         #endregion

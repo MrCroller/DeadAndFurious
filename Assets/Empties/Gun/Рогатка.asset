@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f967d5556f1b249b03dff219097aa6, type: 3}
   m_Name: "\u0420\u043E\u0433\u0430\u0442\u043A\u0430"
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
-  _bulletPrefab: {fileID: 0}
-  _damage: 1
-  _attackSpeed: 10
-  _bulletSpeed: 3
+  _sprite: {fileID: 259853244, guid: c27ef4b5e94e6484cbfe155b6fab599d, type: 3}
+  _damage: 5
+  _attackDelay: 1.34
+  _fireForse: 6
+  _bulletPrefab: {fileID: 632071427425382579, guid: e945fca44ecc7de41bbf8c2d29bcbee2, type: 3}
+  _bulletTimeLife: 3

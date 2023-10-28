@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4034415038401016006}
   - component: {fileID: 2042658189301828383}
   - component: {fileID: 2682490158097448503}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: "\u041B\u043E\u0434\u043A\u0430"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.955, y: 1.96}
+    oldSize: {x: 0.8304348, y: 1.7043478}
     newSize: {x: 0.955, y: 2.525}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7437024401878991258}
   - component: {fileID: 6769748285513715285}
   - component: {fileID: 4047960198144835633}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

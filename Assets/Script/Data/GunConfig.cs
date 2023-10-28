@@ -10,14 +10,16 @@ namespace DF.Data
 
         [Tooltip("Спрайт оружия")]
         [SerializeField] private Sprite _sprite;
-        [Tooltip("Префаб пули")]
-        [SerializeField] private Rigidbody2D _bulletPrefab;
         [Tooltip("Урон")]
         [SerializeField] private float _damage;
-        [Tooltip("Скорость атаки")]
-        [SerializeField] private float _attackSpeed;
-        [Tooltip("Скорость полета пули")]
-        [SerializeField] private float _bulletSpeed;
+        [Tooltip("Задержка между выстрелами")]
+        [SerializeField, Range(0f, 15f)] private float _attackDelay;
+        [Tooltip("Сила выстрела")]
+        [SerializeField] private float _fireForse;
+        [Tooltip("Префаб пули")]
+        [SerializeField] private Rigidbody2D _bulletPrefab;
+        [Tooltip("Время жизни пули")]
+        [SerializeField] private float _bulletTimeLife;
 
         #endregion
 
@@ -25,10 +27,11 @@ namespace DF.Data
         #region Properties
 
         public Sprite Sprite => _sprite;
-        public Rigidbody2D BulletPrefab => _bulletPrefab;
         public float Damage => _damage;
-        public float AttackSpeed => _attackSpeed;
-        public float BulletSpeed => _bulletSpeed;
+        public float AttackDelay => _attackDelay;
+        public float FireForse => _fireForse;
+        public Rigidbody2D BulletPrefab => _bulletPrefab;
+        public float BulletLifeTime => _bulletTimeLife;
 
         #endregion
 

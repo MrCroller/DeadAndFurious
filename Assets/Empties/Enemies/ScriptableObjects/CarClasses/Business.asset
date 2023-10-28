@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Business
   m_EditorClassIdentifier: 
   _carClass: 2
-  _shipSprite: {fileID: 0}
+  _shipSprite: {fileID: 1851066991, guid: 1655dab38756bba4392a8f8a0c58efd4, type: 3}
   _expPoint: 3

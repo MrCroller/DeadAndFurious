@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2bd2e34729fdb845bf40e5f3d04b709, type: 3}
+  m_Script: {fileID: 11500000, guid: 04f254f72bff7674b8dbcb1aff0dbefc, type: 3}
   m_Name: Econom
   m_EditorClassIdentifier: 
   _carClass: 0
-  _shipSprite: {fileID: 1866674055, guid: c4d5ee371a86ce94e87c7b480d67f715, type: 3}
+  _shipSprite: {fileID: -1444574295, guid: 1655dab38756bba4392a8f8a0c58efd4, type: 3}
   _expPoint: 1

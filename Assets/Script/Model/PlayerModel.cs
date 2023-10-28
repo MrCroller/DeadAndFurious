@@ -17,6 +17,7 @@ namespace DF.Model
         internal float AdditionalSpeedAtack;
 
         internal GunConfig CurrentGun;
+        internal bool IsGunReload;
 
         #endregion
 
@@ -40,7 +41,7 @@ namespace DF.Model
 
         public float CurrentSpeedAtack
         {
-            get => _baseSpeedAtack + AdditionalSpeedAtack + CurrentGun.AttackSpeed;
+            get => _baseSpeedAtack + AdditionalSpeedAtack + CurrentGun.AttackDelay;
         }
 
         #endregion
@@ -51,6 +52,9 @@ namespace DF.Model
             _baseMovementSmoothing = config.MovementSmoothing;
             _baseDamage = config.Damage;
             _baseSpeedAtack = config.SpeedAtack;
+
+            CurrentGun = config.DefaultGun;
+            IsGunReload = false;
         }
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8f967d5556f1b249b03dff219097aa6, type: 3}
-  m_Name: "\u0411\u0430\u043B\u043B\u0438\u0441\u0442\u0430"
+  m_Name: "\u041F\u0443\u0448\u043A\u0430"
   m_EditorClassIdentifier: 
-  _sprite: {fileID: -725653152, guid: 399da4d609178e34384c1b25633cb293, type: 3}
-  _damage: 15
-  _attackDelay: 2.09
-  _fireForse: 15
+  _sprite: {fileID: -410140831, guid: b1a1eb822bfe34948af345c4130515e4, type: 3}
+  _damage: 25
+  _attackDelay: 2.14
+  _fireForse: 10
   _bulletPrefab: {fileID: 0}
   _bulletTimeLife: 5
