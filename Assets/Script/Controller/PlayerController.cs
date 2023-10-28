@@ -1,13 +1,13 @@
-﻿using System;
-using DF.Data;
-using DF.Input;
-using DF.Interface;
-using DF.Model;
-using UnityEngine;
-
-namespace DF.Controller
+﻿namespace DF.Controller
 {
-    public sealed class PlayerController : IExecuteLater, IDisposable
+    using System;
+    using DF.Data;
+    using DF.Input;
+    using DF.Interface;
+    using DF.Model;
+    using UnityEngine;
+
+    public class PlayerController : IExecuteLater, IDisposable
     {
         public readonly PlayerInput Input;
         private readonly PlayerModel _data;

@@ -1,15 +1,13 @@
-
-using DF.Input;
-
 namespace DF.Controller
 {
-    public class FindmobileController : EnemyController
-    {
-        private Findmobile _findMobileGO = default;
+    using DF.Input;
 
+    public sealed class FindmobileController : EnemyController
+    {
         public FindmobileController(Findmobile go)
         {
-            _findMobileGO = go;
+            _enemyGO = go;
+            StartMovement();
         }
     }
 }

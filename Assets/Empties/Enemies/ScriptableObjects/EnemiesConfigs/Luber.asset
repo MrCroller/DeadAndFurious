@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Luber
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 4172399967543729885, guid: 09b188079a5069c4a8ff148f2d39b62a, type: 3}
+  _speed: 0.02

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Findmobile
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 1962140668456184375, guid: 6201678187a545247a07a0b02208da3d, type: 3}
+  _speed: 0.01

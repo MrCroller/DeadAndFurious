@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Youndex
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 178528399520808571, guid: af1b8bbf6df7e0844b16631680fdf3ed, type: 3}
+  _speed: 0.03

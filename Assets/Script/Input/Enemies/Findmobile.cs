@@ -1,8 +1,8 @@
-using DF.Controller;
-
 namespace DF.Input
 {
-    public class Findmobile : Enemy
+    using DF.Controller;
+
+    public sealed class Findmobile : Enemy
     {
         public override void InitController()
         {
