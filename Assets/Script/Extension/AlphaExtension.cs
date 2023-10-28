@@ -28,7 +28,7 @@ namespace DF.Extension
         /// <param name="time">Time of change </param>
         /// <param name="easing">Curve of change versus time</param>
         /// <param name="isChangeActive">Do I turn the object on and off before and after executing the method?</param>
-        public static void SetAplhaDynamic<T>(this T mono,
+        public static IStop SetAplhaDynamic<T>(this T mono,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true) where T : Component, IColor
@@ -38,7 +38,7 @@ namespace DF.Extension
                 mono.gameObject.SetActive(true);
             }
 
-            TimersPool.GetInstance().StartTimer(EndMethod, GreatSelect, time);
+            return TimersPool.GetInstance().StartTimer(EndMethod, GreatSelect, time);
             void GreatSelect(float progress)
             {
                 mono.SetAlpha(easing.Evaluate(progress));
@@ -62,7 +62,7 @@ namespace DF.Extension
         /// <param name="time">Time of change </param>
         /// <param name="easing">Curve of change versus time</param>
         /// <param name="isChangeActive">Do I turn the object on and off before and after executing the method?</param>
-        public static void SetAplhaDynamic<T>(this T mono,
+        public static IStop SetAplhaDynamic<T>(this T mono,
                                               UnityAction EndMethod,
                                               float time,
                                               AnimationCurve easing,
@@ -73,7 +73,7 @@ namespace DF.Extension
                 mono.gameObject.SetActive(true);
             }
 
-            TimersPool.GetInstance().StartTimer(EndMethodLocal, GreatSelect, time);
+            return TimersPool.GetInstance().StartTimer(EndMethodLocal, GreatSelect, time);
             void GreatSelect(float progress)
             {
                 mono.SetAlpha(easing.Evaluate(progress));
@@ -88,6 +88,36 @@ namespace DF.Extension
                     mono.gameObject.SetActive(false);
                 }
             }
+        }
+
+        public static IStop SetAplhaDynamicRevert<T>(this T mono,
+                                                     UnityAction EndMethod,
+                                                     float time,
+                                                     AnimationCurve easing,
+                                                     bool isChangeActive = true) where T : Component, IColor
+        {
+            if (isChangeActive)
+            {
+                mono.gameObject.SetActive(true);
+            }
+
+            IStop stop = TimersPool.GetInstance().StartTimer(EndMethodIN, GreatSelect, time);
+
+            void GreatSelect(float progress)
+            {
+                mono.SetAlpha(easing.Evaluate(1f - progress));
+            }
+
+            void EndMethodIN()
+            {
+                if (isChangeActive)
+                {
+                    mono.gameObject.SetActive(false);
+                }
+                EndMethod();
+            }
+
+            return stop;
         }
 
         /// <summary>

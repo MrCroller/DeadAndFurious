@@ -103,7 +103,7 @@ namespace UnityEngineTimers
             float time = maxTime;
             do
             {
-                time -= Time.deltaTime;
+                time -= Time.unscaledDeltaTime;
                 OnProgressTick?.Invoke(Mathf.Lerp(0.0f, 1.0f, (maxTime - time) / maxTime));
                 yield return null;
             } while (time > 0.0f);

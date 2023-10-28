@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngineTimers;
 
 namespace TimersSystemUnity.Extension
 {
@@ -16,21 +17,21 @@ namespace TimersSystemUnity.Extension
         #region SpriteRenderer
 
         public static Color SetAlpha(this SpriteRenderer spriteRenderer, float value) => spriteRenderer.Ext().SetAlpha(value);
-        public static void SetAplhaDynamic(this SpriteRenderer spriteRenderer,
+        public static IStop SetAplhaDynamic(this SpriteRenderer spriteRenderer,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true)
         {
-            spriteRenderer.Ext().SetAplhaDynamic(time, easing, isChangeActive);
+            return spriteRenderer.Ext().SetAplhaDynamic(time, easing, isChangeActive);
         }
 
-        public static void SetAplhaDynamic(this SpriteRenderer spriteRenderer,
+        public static IStop SetAplhaDynamic(this SpriteRenderer spriteRenderer,
                                               UnityAction EndMethod,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true)
         {
-            spriteRenderer.Ext().SetAplhaDynamic(EndMethod, time, easing, isChangeActive);
+            return spriteRenderer.Ext().SetAplhaDynamic(EndMethod, time, easing, isChangeActive);
         }
 
         public static void SetAplhaDynamic(this SpriteRenderer spriteRenderer,
@@ -48,21 +49,30 @@ namespace TimersSystemUnity.Extension
         #region Image
 
         public static Color SetAlpha(this Image spriteRenderer, float value) => spriteRenderer.Ext().SetAlpha(value);
-        public static void SetAplhaDynamic(this Image spriteRenderer,
+        public static IStop SetAplhaDynamic(this Image spriteRenderer,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true)
         {
-            spriteRenderer.Ext().SetAplhaDynamic(time, easing, isChangeActive);
+            return spriteRenderer.Ext().SetAplhaDynamic(time, easing, isChangeActive);
         }
 
-        public static void SetAplhaDynamic(this Image spriteRenderer,
+        public static IStop SetAplhaDynamic(this Image spriteRenderer,
                                               UnityAction EndMethod,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true)
         {
-            spriteRenderer.Ext().SetAplhaDynamic(EndMethod, time, easing, isChangeActive);
+            return spriteRenderer.Ext().SetAplhaDynamic(EndMethod, time, easing, isChangeActive);
+        }
+
+        public static IStop SetAplhaDynamicRevert(this Image spriteRenderer,
+                                              UnityAction EndMethod,
+                                              float time,
+                                              AnimationCurve easing,
+                                              bool isChangeActive = true)
+        {
+            return spriteRenderer.Ext().SetAplhaDynamicRevert(EndMethod, time, easing, isChangeActive);
         }
 
         public static void SetAplhaDynamic(this Image spriteRenderer,
@@ -80,21 +90,21 @@ namespace TimersSystemUnity.Extension
         #region TMP_Text
 
         public static Color SetAlpha(this TMP_Text spriteRenderer, float value) => spriteRenderer.Ext().SetAlpha(value);
-        public static void SetAplhaDynamic(this TMP_Text spriteRenderer,
+        public static IStop SetAplhaDynamic(this TMP_Text spriteRenderer,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true)
         {
-            spriteRenderer.Ext().SetAplhaDynamic(time, easing, isChangeActive);
+            return spriteRenderer.Ext().SetAplhaDynamic(time, easing, isChangeActive);
         }
 
-        public static void SetAplhaDynamic(this TMP_Text spriteRenderer,
+        public static IStop SetAplhaDynamic(this TMP_Text spriteRenderer,
                                               UnityAction EndMethod,
                                               float time,
                                               AnimationCurve easing,
                                               bool isChangeActive = true)
         {
-            spriteRenderer.Ext().SetAplhaDynamic(EndMethod, time, easing, isChangeActive);
+            return spriteRenderer.Ext().SetAplhaDynamic(EndMethod, time, easing, isChangeActive);
         }
 
         public static void SetAplhaDynamic(this TMP_Text spriteRenderer,

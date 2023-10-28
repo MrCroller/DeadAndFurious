@@ -5,7 +5,7 @@ namespace DF.Data
     /// <summary>
     /// Конфиг для спавна врагов
     /// </summary>
-    [CreateAssetMenu(fileName = nameof(EnemySpawnConfig), menuName = "DR/Configs/EnemySpawn")]
+    [CreateAssetMenu(fileName = nameof(EnemySpawnConfig), menuName = "DF/Configs/EnemySpawn")]
     public sealed class EnemySpawnConfig : ScriptableObject
     {
         [SerializeField]
