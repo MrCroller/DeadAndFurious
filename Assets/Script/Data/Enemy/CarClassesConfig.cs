@@ -3,7 +3,7 @@ namespace DF.Data
     using System.Collections.Generic;
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = nameof(CarClassesConfig), menuName = "DF/Configs/CarClasses")]
+    [CreateAssetMenu(fileName = nameof(CarClassesConfig), menuName = "DF/Configs/Enemy/CarClasses")]
     public class CarClassesConfig : ScriptableObject
     {
         [SerializeField]

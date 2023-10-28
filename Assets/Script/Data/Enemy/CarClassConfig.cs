@@ -2,7 +2,7 @@ namespace DF.Data
 {
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = nameof(CarClassConfig), menuName = "DF/Configs/CarClass")]
+    [CreateAssetMenu(fileName = nameof(CarClassConfig), menuName = "DF/Configs/Enemy/CarClass")]
     public class CarClassConfig : ScriptableObject
     {
         [SerializeField]
@@ -21,6 +21,6 @@ namespace DF.Data
     {
         Econom = 0,
         Comfort = 1,
-        ComfortPlus = 2
+        Business = 2
     }
 }

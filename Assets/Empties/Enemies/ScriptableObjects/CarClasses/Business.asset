@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2bd2e34729fdb845bf40e5f3d04b709, type: 3}
-  m_Name: ComfortPlus
+  m_Script: {fileID: 11500000, guid: 04f254f72bff7674b8dbcb1aff0dbefc, type: 3}
+  m_Name: Business
   m_EditorClassIdentifier: 
   _carClass: 2
-  _shipSprite: {fileID: -1894858117, guid: 41fab35df63f18b4ea6e5b5c05f29d64, type: 3}
+  _shipSprite: {fileID: 0}
   _expPoint: 3

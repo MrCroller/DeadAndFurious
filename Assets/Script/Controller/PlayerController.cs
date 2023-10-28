@@ -5,9 +5,9 @@
     using DF.Input;
     using DF.Interface;
     using DF.Model;
+    using DF.ObjectPool;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using static UnityEngine.RuleTile.TilingRuleOutput;
     using PlayerInput = Input.PlayerInput;
 
     public sealed class PlayerController : IExecute, IExecuteLater, IDisposable
@@ -22,7 +22,8 @@
         private Vector2 _move;
         private Vector2 m_Velocity = Vector2.zero;
         private float _angleRotaitGun;
-        
+
+        private ObjectPool<Rigidbody2D> _bulletPool = default;
 
         public Vector2 CursorPosition
         {
@@ -38,19 +39,23 @@
 
         #region ClassLife
 
-        public PlayerController(PlayerInput input, PlayerConfig config) 
+        public PlayerController(PlayerInput input, PlayerConfig config, Transform bulletParent) 
         {
             Input = input;
             _data = new PlayerModel(config);
 
             Input.OnMovementEvent += OnMoveInput;
             Input.OnFireEvent     += OnFireInput;
+
+            _bulletPool = new(bulletParent);
         }
 
         public void Dispose()
         {
             Input.OnMovementEvent -= OnMoveInput;
             Input.OnFireEvent     -= OnFireInput;
+
+            _bulletPool.Clear();
         }
 
         #endregion
@@ -72,6 +77,8 @@
             Input.GunObject.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
         }
 
+        public void TakeNewGun(GunConfig gun) => _data.CurrentGun = gun;
+
         private void OnMoveInput(Vector2 input)
         {
             _moveInput = input;
@@ -82,11 +89,6 @@
 
 
             //Input.GunObject.transform.rotation
-        }
-
-        private void TakeNewGun(GunConfig gun)
-        {
-            _data.CurrentGun = gun;
         }
 
         #endregion

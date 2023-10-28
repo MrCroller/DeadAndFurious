@@ -5,6 +5,7 @@ using DF.Controller;
 using DF.Data;
 using DF.Interface;
 using DF.ObjectPool;
+using DF.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -90,8 +91,8 @@ namespace DF.Input
 
         private void Awake()
         {
-            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig);
-            _playerController = new PlayerController(player, playerConfig);
+            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig, player, _enemyParent);
+            _playerController = new PlayerController(player, playerConfig, bulletParent);
 
             _executes = new() 
             {

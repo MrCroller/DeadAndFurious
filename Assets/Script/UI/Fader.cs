@@ -24,7 +24,7 @@ namespace DF.UI
         public void FadeIn()
         {
             _timerAnimation?.Stop();
-            _timerAnimation = _faderImage.SetAplhaDynamic(() => _timerAnimation = null, _fadeTime, _easing, false);
+            _timerAnimation = _faderImage.SetAplhaDynamic(() => _timerAnimation = null, _fadeTime, _easing, false, true);
         }
 
         /// <summary>
@@ -34,19 +34,19 @@ namespace DF.UI
         public void FadeIn(UnityAction MethodEnd)
         {
             _timerAnimation?.Stop();
-            _timerAnimation = _faderImage.SetAplhaDynamic(() => { _timerAnimation = null; MethodEnd(); }, _fadeTime, _easing, false);
+            _timerAnimation = _faderImage.SetAplhaDynamic(() => { _timerAnimation = null; MethodEnd(); }, _fadeTime, _easing, false, true);
         }
 
         public void FadeIn(UnityAction MethodEnd, float fadeTime)
         {
             _timerAnimation?.Stop();
-            _timerAnimation = _faderImage.SetAplhaDynamic(() => { _timerAnimation = null; MethodEnd(); }, fadeTime, _easing, false);
+            _timerAnimation = _faderImage.SetAplhaDynamic(() => { _timerAnimation = null; MethodEnd(); }, fadeTime, _easing, false, true);
         }
 
         public void FadeOut()
         {
             _timerAnimation?.Stop();
-            _timerAnimation = _faderImage.SetAplhaDynamicRevert(() => _timerAnimation = null, _fadeTime, _easing, false);
+            _timerAnimation = _faderImage.SetAplhaDynamicRevert(() => _timerAnimation = null, _fadeTime, _easing, false, true);
         }
 
         /// <summary>
@@ -56,13 +56,13 @@ namespace DF.UI
         public void FadeOut(UnityAction MethodEnd)
         {
             _timerAnimation?.Stop();
-            _timerAnimation = _faderImage.SetAplhaDynamicRevert(MethodEnd, _fadeTime, _easing, false);
+            _timerAnimation = _faderImage.SetAplhaDynamicRevert(MethodEnd, _fadeTime, _easing, false, true);
         }
 
         public void FadeOut(UnityAction MethodEnd, float fadeTime)
         {
             _timerAnimation?.Stop();
-            _timerAnimation = _faderImage.SetAplhaDynamicRevert(MethodEnd, fadeTime, _easing, false);
+            _timerAnimation = _faderImage.SetAplhaDynamicRevert(MethodEnd, fadeTime, _easing, false, true);
         }
     }
 }

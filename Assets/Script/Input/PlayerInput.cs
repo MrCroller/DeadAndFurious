@@ -3,6 +3,7 @@
     using System;
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using UnityEngine.UI;
 
     public sealed class PlayerInput : MonoBehaviour
     {
@@ -11,6 +12,7 @@
         public event Action          OnOpenOptionEvent;
 
         public Rigidbody2D Rigidbody;
+        public Slider HPBar;
         public SpriteRenderer GunObject;
         [HideInInspector] public bool IsControlable = true;
 
