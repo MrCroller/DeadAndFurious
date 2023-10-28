@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
-
-
-namespace DF.Input
+﻿namespace DF.Input
 {
+    using System;
+    using UnityEngine;
+    using UnityEngine.InputSystem;
+
     public sealed class PlayerInput : MonoBehaviour
     {
         public event Action<Vector2> OnMovementEvent;

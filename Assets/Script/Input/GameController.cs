@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DF.Controller;
 using DF.Data;
 using DF.Interface;
@@ -15,12 +16,16 @@ namespace DF.Input
 
         [SerializeField] private MapConfig mapConfig;
         [SerializeField] private PlayerConfig playerConfig;
+        [SerializeField]
+        private EnemySpawnConfig _enemySpawnConfig = default;
 
         [Header("Links")]
 
         [SerializeField] private Chunk chunkPrefab;
         [SerializeField] private Transform roadParent;
         [SerializeField] private PlayerInput player;
+        [SerializeField]
+        private Enemy _enemyPrefab = default;
 
         #endregion
 
@@ -33,6 +38,7 @@ namespace DF.Input
 
 
         #region Controllers
+        private EnemySpawnController _enemySpawnController = default;
 
         private List<IExecute> _executes;
         private List<IExecuteLater> _executesLaters;
@@ -44,8 +50,6 @@ namespace DF.Input
 
         private void Awake()
         {
-
-
             _executes = new() 
             { 
                 
@@ -57,6 +61,13 @@ namespace DF.Input
                 new RoadController(chunkPrefab, roadParent, mapConfig),
                 new PlayerController(player, playerConfig)
             };
+
+            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig);
+        }
+
+        private void Start()
+        {
+            _enemySpawnController.Init();
         }
 
         private void Update() => _executes.ForEach(ex => ex.Execute());
