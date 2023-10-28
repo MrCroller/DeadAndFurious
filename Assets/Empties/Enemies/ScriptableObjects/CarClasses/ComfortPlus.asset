@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _carClass: 2
   _shipSprite: {fileID: -1894858117, guid: 41fab35df63f18b4ea6e5b5c05f29d64, type: 3}
+  _expPoint: 3
