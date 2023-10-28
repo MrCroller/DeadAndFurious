@@ -14,7 +14,7 @@ namespace DF.Factory
         public void SpawnEnemy(Enemy enemyPrefab, Vector3 position)
         {
             GameObject enemy = GameObject.Instantiate(enemyPrefab.gameObject, position, Quaternion.identity);
-            enemy.GetComponent<Enemy>().InitController();
+            //enemy.GetComponent<Enemy>().InitController();
         }
     }
 }

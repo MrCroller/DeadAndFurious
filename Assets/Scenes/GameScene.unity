@@ -659,11 +659,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapConfig: {fileID: 11400000, guid: 78f72dff1af7e33488cc7ac52d24ad71, type: 2}
   playerConfig: {fileID: 11400000, guid: ad640a7bf49fdd94cb492b1bfe008eed, type: 2}
-  _enemySpawnConfig: {fileID: 11400000, guid: 34bf9caf3aae9d64789beb7159775586, type: 2}
+  _enemySpawnConfig: {fileID: 11400000, guid: 5e1610aa0c58d1b4d969f8526c4c5ed1, type: 2}
   chunkPrefab: {fileID: 8212166858853993846, guid: 9851dace93b02d040948bfa187542e9f, type: 3}
   roadParent: {fileID: 1821068782}
   player: {fileID: 514277626}
-  _enemyPrefab: {fileID: 0}
+  _enemyPrefab: {fileID: 6769748285513715285, guid: f3d988d3994f31644bcf768c3e009b73, type: 3}
 --- !u!4 &1971999798
 Transform:
   m_ObjectHideFlags: 0

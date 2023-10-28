@@ -1,10 +1,10 @@
 namespace DF.Controller
 {
+    using DF.Builder;
     using DF.Data;
-    using DF.Factory;
+    using DF.Input;
     using System;
     using System.Collections;
-    using Unity.VisualScripting;
     using UnityEngine;
     using UnityEngineTimers;
 
@@ -14,12 +14,12 @@ namespace DF.Controller
         private Coroutine _enemySpawnCoroutine = default;
         private bool GameEnd = false;
 
-        private EnemySpawnFactory _enemySpawnFactory = default;
+        private EnemyBuilder _enemyBuilder = default;
 
         public EnemySpawnController(EnemySpawnConfig enemySpawnConfig)
         {
-            _enemySpawnConfig = enemySpawnConfig;
-            _enemySpawnFactory = new EnemySpawnFactory();
+            _enemySpawnConfig = enemySpawnConfig;            
+            _enemyBuilder = new EnemyBuilder();
         }
 
         /// <summary>
@@ -40,15 +40,28 @@ namespace DF.Controller
             {
                 yield return new WaitForSeconds(_enemySpawnConfig.SpawnTimer);
 
-                int randomEnemyID = UnityEngine.Random.Range(0, _enemySpawnConfig.EnemiesConfig.EnemiesConfigs.Count); 
+                int randomCarClassID = UnityEngine.Random.Range(0, _enemySpawnConfig.CarClasses.CarClasses.Count);
+                int randomCompanyID = UnityEngine.Random.Range(0, _enemySpawnConfig.Companies.Companies.Count);
 
-                float spawnOffsetY = _enemySpawnConfig.EnemiesConfig.EnemiesConfigs[randomEnemyID].EnemyPrefab.gameObject.transform.localScale.y;
+                float spawnOffsetY = _enemySpawnConfig.CarClasses.CarClasses[randomCarClassID].ScaleFactor;
                 Vector3 randomSpawnPositionWithoutOffset = Camera.main.ScreenToWorldPoint(
                     new Vector3(UnityEngine.Random.Range(0f, Screen.width), Screen.height, 0));
 
                 Vector3 randomSpawnPosition = new Vector3(randomSpawnPositionWithoutOffset.x, randomSpawnPositionWithoutOffset.y + spawnOffsetY, 0);
-                _enemySpawnFactory.SpawnEnemy(_enemySpawnConfig.EnemiesConfig.EnemiesConfigs[randomEnemyID].EnemyPrefab, randomSpawnPosition);
+                SpawnEnemy(randomSpawnPosition, 
+                    _enemySpawnConfig.CarClasses.CarClasses[randomCarClassID],
+                    _enemySpawnConfig.Companies.Companies[randomCompanyID]);
             }
+        }
+
+        private void SpawnEnemy(Vector3 position, CarClassConfig carClass, CompanyConfig company)
+        {
+            Enemy enemy = _enemyBuilder
+                .Reset()
+                .WithRootPrefab(_enemySpawnConfig.Enemy)
+                .WithCarClass(carClass)
+                .WithCompany(company)
+                .Build(position);
         }
 
         void IDisposable.Dispose() 
