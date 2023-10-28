@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using DF.Controller;
 using DF.Data;
 using DF.Interface;
@@ -26,6 +27,7 @@ namespace DF.Input
 
         [SerializeField] private Chunk chunkPrefab;
         [SerializeField] private Transform roadParent;
+        [SerializeField] private Transform bulletParent;
         [SerializeField] private PlayerInput player;
         [SerializeField]
         private Enemy _enemyPrefab = default;
@@ -70,8 +72,10 @@ namespace DF.Input
 
 
         #region Controllers
+
         private EnemySpawnController _enemySpawnController = default;
         private ObjectPool<Bullet> _bulletPool = default;
+        private PlayerController     _playerController = default;
 
         private List<IExecute> _executes;
         private List<IExecuteLater> _executesLaters;
@@ -86,21 +90,21 @@ namespace DF.Input
 
         private void Awake()
         {
-            
+            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig);
+            _playerController = new PlayerController(player, playerConfig);
 
             _executes = new() 
-            { 
-                
+            {
+                _playerController,
             };
 
 
             _executesLaters = new() 
             {
                 new RoadController(chunkPrefab, roadParent, mapConfig),
-                new PlayerController(player, playerConfig)
+                _playerController
             };
 
-            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig, player, _enemyParent);
         }
 
         private void Start()

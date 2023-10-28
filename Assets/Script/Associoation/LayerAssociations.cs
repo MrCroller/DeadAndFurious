@@ -10,5 +10,6 @@ namespace DF.Associations
     {
         public const int TRIGGER_END_ROAD = 20;
         public const int BORDER           = 9;
+        public const int PLAYER           = 3;
     }
 }

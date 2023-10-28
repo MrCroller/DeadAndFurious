@@ -7,10 +7,13 @@
     public sealed class PlayerInput : MonoBehaviour
     {
         public event Action<Vector2> OnMovementEvent;
+        public event Action          OnFireEvent;
         public event Action          OnOpenOptionEvent;
 
         public Rigidbody2D Rigidbody;
+        public SpriteRenderer GunObject;
         [HideInInspector] public bool IsControlable = true;
+
 
         private void Reset()
         {
