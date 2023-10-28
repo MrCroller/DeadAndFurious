@@ -57,6 +57,7 @@ namespace DF.Controller
             {
                 Coroutines.StopRoutine(_enemySpawnCoroutine);
             }
+            _enemySpawnCoroutine = null;
         }
     }
 }
