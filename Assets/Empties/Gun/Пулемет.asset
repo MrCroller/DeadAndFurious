@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f967d5556f1b249b03dff219097aa6, type: 3}
   m_Name: "\u041F\u0443\u043B\u0435\u043C\u0435\u0442"
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 1691815948, guid: 9eab4972bc8687b4fbde3323b4fe8c35, type: 3}
+  _icon: {fileID: 1691815948, guid: 9eab4972bc8687b4fbde3323b4fe8c35, type: 3}
+  _name: "\u041F\u0443\u043B\u0435\u043C\u0435\u0442"
   _attackDelay: 0.2
   _fireForse: 13
   _bullet: {fileID: 1756202451367152929, guid: 2052da00d495f2246975dc3c41602ac2, type: 3}
