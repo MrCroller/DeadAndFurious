@@ -7,10 +7,13 @@ namespace DF.UI
     public class Character : ScriptableObject
     {
         [SerializeField]
+        private string _characterName = default;
+        [SerializeField]
         private Sprite _characterImage = default;
         [SerializeField]
         private Color _characterTextColor = default;
 
+        public string CharacterName => _characterName;
         public Color CharacterTextColor => _characterTextColor;
         public Sprite CharacterImage => _characterImage;
     }

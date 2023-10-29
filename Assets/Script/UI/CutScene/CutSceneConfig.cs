@@ -13,6 +13,8 @@ namespace DF.UI
         private List<DialogItem> _dialogConfig = new List<DialogItem>();
 
         [SerializeField]
+        private Text _characterName = default;
+        [SerializeField]
         private Text _text = default;
         [SerializeField]
         private Image _characterAvatar = default;
@@ -46,6 +48,8 @@ namespace DF.UI
             DialogItem item = _dialogConfig[_currentDialogIndex];
             _text.text = item.text;
             _text.color = item._character.CharacterTextColor;
+            _characterName.text = item._character.CharacterName;
+            _characterName.color = item._character.CharacterTextColor;
             _characterAvatar.sprite = item._character.CharacterImage;
             _currentDialogIndex++;
 
