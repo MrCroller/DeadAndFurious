@@ -467,6 +467,7 @@ MonoBehaviour:
   _bulletSpawn: {fileID: 5456808771257539683}
   _shipBorder: {fileID: 3032498565086961569}
   _managerSprite: {fileID: 7414566363649886390}
+  _hpSlider: {fileID: 7881090294557263534}
 --- !u!1001 &4598448644122815992
 PrefabInstance:
   m_ObjectHideFlags: 0
