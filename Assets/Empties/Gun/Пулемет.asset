@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 1691815948, guid: 9eab4972bc8687b4fbde3323b4fe8c35, type: 3}
   _name: "\u041F\u0443\u043B\u0435\u043C\u0435\u0442"
-  _attackDelay: 0.2
+  _attackDelay: 0.4
   _fireForse: 13
   _bullet: {fileID: 1756202451367152929, guid: 2052da00d495f2246975dc3c41602ac2, type: 3}
   _bulletTimeLife: 2

@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 632071427425382579}
-  _damage: 2
+  _damage: 5
 --- !u!212 &1506313904282699267
 SpriteRenderer:
   m_ObjectHideFlags: 0
