@@ -76,7 +76,7 @@ namespace DF.Controller
 
         private void SpawnEnemy(Vector3 position, CarClassConfig carClass, CompanyConfig company)
         {
-            Enemy enemy = _enemyBuilder
+            EnemyInput enemy = _enemyBuilder
                 .Reset()
                 .WithRootPrefab(carClass.ShipPrefab)
                 .WithCarClass(carClass)

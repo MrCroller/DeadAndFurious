@@ -12,6 +12,7 @@ namespace DF.Model
         private const float MOV_SMOOTH_CUP = 0.1f;
         public readonly float LVLCup;
 
+        private readonly float _baseHP;
         private readonly float _baseSpeed;
         private readonly float _baseMovementSmoothing;
         private readonly float _baseDamage;
@@ -30,6 +31,8 @@ namespace DF.Model
         #region Properties
 
         public float HP { get; set; }
+
+        public float MAXHP => _baseHP;
 
         public int XP { get; set; }
 
@@ -64,6 +67,8 @@ namespace DF.Model
         internal PlayerModel(PlayerConfig config)
         {
             HP = config.HP;
+
+            _baseHP = config.HP;
             _baseSpeed = config.Speed;
             _baseMovementSmoothing = config.MovementSmoothing;
             _baseDamage = config.Damage;

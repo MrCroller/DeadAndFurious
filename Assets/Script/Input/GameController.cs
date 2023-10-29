@@ -31,8 +31,6 @@ namespace DF.Input
         [SerializeField] private Transform bulletParent;
         [SerializeField] private PlayerInput player;
         [SerializeField]
-        private Enemy _enemyPrefab = default;
-        [SerializeField]
         private Transform _enemyParent = default;
         [SerializeField]
         private BulletInput _bulletPrefab = default;

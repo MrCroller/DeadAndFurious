@@ -63,6 +63,7 @@
             Input.OnFireEvent     += OnFireInput;
             Input.OnTakeGun       += TakeNewGun;
             Input.OnTakeExp       += AddExp;
+            Input.OnTakeDamage    += TakeDamage;
 
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
         }
@@ -73,6 +74,7 @@
             Input.OnFireEvent     -= OnFireInput;
             Input.OnTakeGun       -= TakeNewGun;
             Input.OnTakeExp       -= AddExp;
+            Input.OnTakeDamage    -= TakeDamage;
 
             foreach (var pool in _bulletPoolMap.Values)
             {
@@ -102,7 +104,7 @@
             OnFire();
         }
 
-        public void TakeNewGun(GunConfig gun)
+        private void TakeNewGun(GunConfig gun)
         {
             _data.CurrentGun = gun;
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
@@ -113,10 +115,25 @@
             }
         }
 
-        public void AddExp(int count)
+        private void AddExp(int count)
         {
             _data.XP += count;
             ChekLevel();
+        }
+
+        private void TakeDamage(int value)
+        {
+            _data.HP -= value;
+
+            if (_data.HP < 0)
+            {
+                Input.OnPlayerDeath.Invoke();
+                Input.OnHPChange.Invoke(0f, _data.MAXHP);
+            }
+            else
+            {
+                Input.OnHPChange.Invoke(_data.HP, _data.MAXHP);
+            }
         }
 
         private void OnMoveInput(Vector2 input)

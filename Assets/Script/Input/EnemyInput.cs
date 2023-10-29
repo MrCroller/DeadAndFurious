@@ -2,11 +2,15 @@ namespace DF.Input
 {
     using DF.Data;
     using DF.ObjectPool;
+    using DF.UI;
     using UnityEngine;
+    using UnityEngine.Events;
     using UnityEngine.UI;
 
-    public class Enemy : MonoBehaviour
+    public class EnemyInput : MonoBehaviour
     {
+        public UnityEvent<float, float> OnHPChange;
+
         [SerializeField]
         private EnemyConfig _enemyConfig = default;
         [SerializeField]
@@ -15,13 +19,11 @@ namespace DF.Input
         private SpriteRenderer _shipBorder;
         [SerializeField]
         private SpriteRenderer _managerSprite;
-        [SerializeField]
-        private Slider _hpBar;
 
         private CarClassConfig _carClass = default;
         private CompanyConfig _company = default;
         private PlayerInput _player = default;
-        private ObjectPool<Enemy> _enemyObjectPool = default;
+        private ObjectPool<EnemyInput> _enemyObjectPool = default;
 
         public EnemyConfig EnemyConfig => _enemyConfig;
         public GameObject BulletSpawn => _bulletSpawn;
@@ -29,18 +31,20 @@ namespace DF.Input
         public CarClassConfig CarClass => _carClass;
         public CompanyConfig Company => _company;
         public PlayerInput Player => _player;
-        public ObjectPool<Enemy> EnemyObjectPool => _enemyObjectPool;
-
-        public Slider HpBar => _hpBar;
+        public ObjectPool<EnemyInput> EnemyObjectPool => _enemyObjectPool;
 
         private int _hp = 0;
         public int HP => _hp;
 
+        private void Start()
+        {
+            OnHPChange ??= new();
+        }
 
         public void SetData(CarClassConfig carClassConfig,
             CompanyConfig companyconfig,
             PlayerInput player,
-            ObjectPool<Enemy> enemyObjectPool)
+            ObjectPool<EnemyInput> enemyObjectPool)
         {
             _carClass = carClassConfig;
             _company = companyconfig;
@@ -59,12 +63,6 @@ namespace DF.Input
         {
             _shipBorder.color = _company.CompanyColor;
             _managerSprite.sprite = _company.ManagerSprite;
-            UpdateHpBar(1);
-        }
-        
-        public void UpdateHpBar(float value)
-        {
-            _hpBar.value = value;
         }
     }
 }

@@ -14,7 +14,7 @@
         public static event Action<int> OnDeath = delegate { };
 
         [SerializeField]
-        private Enemy _enemy = default;
+        private EnemyInput _enemy = default;
         private bool isMove = true;
 
         private float _speed;
@@ -47,11 +47,9 @@
         private void GetDamage(int damage)
         {
             int hp = _enemy.CarClass.HP;
-            float HpBarValue = (float)damage / hp;
-
-            _enemy.HpBar.gameObject.SetActive(true);
             _enemy.UpdateHP(hp - damage);
-            _enemy.UpdateHpBar(HpBarValue);
+
+            _enemy.OnHPChange.Invoke(_enemy.HP , _enemy.CarClass.HP);
 
             if(_enemy.HP <= 0)
             {

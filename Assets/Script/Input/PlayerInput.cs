@@ -14,8 +14,11 @@
         public event Action            OnOpenOptionEvent;
         public event Action<GunConfig> OnTakeGun;
         public event Action<int>       OnTakeExp;
+        public event Action<int>       OnTakeDamage;
 
         public UnityEvent OnLVLUp;
+        public UnityEvent<float, float> OnHPChange;
+        public UnityEvent OnPlayerDeath;
 
         public Rigidbody2D Rigidbody;
         public Slider HPBar;
@@ -25,12 +28,30 @@
 
         private void Start()
         {
-            OnLVLUp ??= new();
+            OnLVLUp       ??= new();
+            OnHPChange    ??= new();
+            OnPlayerDeath ??= new();
         }
 
         private void Reset()
         {
             Rigidbody = Rigidbody != null ? Rigidbody : GetComponent<Rigidbody2D>();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<BulletInput>(out BulletInput bullet))
+            {
+                if (bullet._bulletSource == BulletSource.EnemyBullet)
+                {
+                    OnTakeDamageHandler(bullet.Damage);
+                }
+            }
+        }
+
+        public void OnTakeDamageHandler(int value)
+        {
+            OnTakeDamage?.Invoke(value);
         }
 
         public void TakeGunHandler(GunConfig gun)

@@ -9,14 +9,14 @@ namespace DF.Data
         [SerializeField]
         private CarClassesEnum _carClass = default;
         [SerializeField]
-        private Enemy _shipPrefab = default;
+        private EnemyInput _shipPrefab = default;
         [SerializeField, Header("Очки опыта")]
         private int _expPoint = default;
         [SerializeField, Header("ХП")]
         private int _HP = default;
 
         public CarClassesEnum CarClass => _carClass;
-        public Enemy ShipPrefab => _shipPrefab;
+        public EnemyInput ShipPrefab => _shipPrefab;
         public int ExpPoint => _expPoint;
         public int HP => _HP;
     }
