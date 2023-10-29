@@ -54,9 +54,10 @@
             if (collision.TryGetComponent<BulletInput>(out BulletInput bullet))
             {
                 PlaySound(HitSound.RandomElement());
-                if (bullet._bulletSource == BulletSource.EnemyBullet)
+                if (bullet.bulletSource == BulletSource.EnemyBullet)
                 {
                     OnTakeDamageHandler(bullet.Damage);
+                    bullet.bulletPool.AddToPool(bullet);
                 }
             }
         }

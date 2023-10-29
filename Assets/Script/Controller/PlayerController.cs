@@ -31,7 +31,7 @@
         private bool _pressFlag = false;
         private bool _soundFlag = false;
 
-        private Dictionary<GunConfig, ObjectPool<Rigidbody2D>> _bulletPoolMap;
+        private Dictionary<GunConfig, ObjectPool<BulletInput>> _bulletPoolMap;
         private Transform _bulletParent;
 
         public Vector2 CursorPosition
@@ -159,24 +159,25 @@
             if (_data.IsGunReload || !_pressFlag) return;
             _data.IsGunReload = true;
 
-            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.Bullet.Rigidbody, _data.CurrentGun.BulletLifeTime);
-            ResetBullet(bullet);
+            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.Bullet, _data.CurrentGun.BulletLifeTime);        
+            ResetBullet(bullet); 
+            bullet.bulletPool = _bulletPoolMap[_data.CurrentGun];
 
             Vector2 direction = CursorPosition - (Vector2)Input.GunObject.transform.position;
             bullet.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
 
-            bullet.AddForce(direction.normalized * _data.CurrentGun.FireForse, ForceMode2D.Impulse);
+            bullet.Rigidbody.AddForce(direction.normalized * _data.CurrentGun.FireForse, ForceMode2D.Impulse);
 
             TimersPool.GetInstance().StartTimer(() => { _data.IsGunReload = false; Input.ReloadBar.fillAmount = 0f; },
                                                 (float progress) => Input.ReloadBar.fillAmount = progress,
                                                 _data.CurrentGun.AttackDelay);
         }
 
-        private void ResetBullet(Rigidbody2D bullet)
+        private void ResetBullet(BulletInput bullet)
         {
             bullet.transform.position = Input.GunObject.transform.position;
-            bullet.velocity = Vector2.zero;
-            bullet.angularVelocity = 0f;
+            bullet.Rigidbody.velocity = Vector2.zero;
+            bullet.Rigidbody.angularVelocity = 0f;
         }
 
         private int ChekLevel()
