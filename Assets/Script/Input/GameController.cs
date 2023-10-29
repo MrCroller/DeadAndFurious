@@ -37,6 +37,8 @@ namespace DF.Input
         [SerializeField] private Fader faderOption;
         [SerializeField]
         private Transform _enemySpawnZone = default;
+        [SerializeField]
+        private Transform _bulletSpawnZone;
         [field: SerializeField] internal MusicManager MusicManager { get; private set; }
 
         #endregion
@@ -83,6 +85,7 @@ namespace DF.Input
 
         private bool _isMenuOpen = false;
         private float _saveTime;
+        private object _bulletPool;
 
         private ObjectPool<BulletInput> _bulletPool;
 
