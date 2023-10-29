@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791c7293b653c0b44a4a25fb85b5cae6, type: 3}
   m_Name: SkillGradeLevelConfig
   m_EditorClassIdentifier: 
-  _attackGrade: []
-  _npc: []
-  _movementGrade: []
+  _attackGrade:
+  - {fileID: 11400000, guid: 9684818bcf8f61b49a02401eaf671aae, type: 2}
+  - {fileID: 11400000, guid: 40dda2e9035cff945bd8527e3d8b88e1, type: 2}
+  _npc:
+  - {fileID: 11400000, guid: 7c3b4d0be4f842b4ebcb22fc23315447, type: 2}
+  - {fileID: 11400000, guid: 2e4d2c3e5a9277542b8018d25b641cf7, type: 2}
+  - {fileID: 11400000, guid: 2cef016e38d81ad469d6706623a954d5, type: 2}
+  - {fileID: 11400000, guid: fa0f72bd5e07b3c46b2ed4d41512fc79, type: 2}
+  _movementGrade:
+  - {fileID: 11400000, guid: 26202592dc809774dad07bfd02a7aae9, type: 2}
+  - {fileID: 11400000, guid: 5f55003201e709242810edb38f8bed16, type: 2}

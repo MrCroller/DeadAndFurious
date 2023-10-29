@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6512988146efbad408874cda673d28d2, type: 3}
   m_Name: "\u041C\u0443\u0434\u0440\u043E\u0435 \u0434\u0435\u0440\u0435\u0432\u043E"
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: ea190062612dce141bda64c61f525d64, type: 3}
   _name: 
   _description: 

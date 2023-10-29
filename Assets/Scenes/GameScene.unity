@@ -340,7 +340,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161659787}
   m_CullTransparentMesh: 1
---- !u!43 &177774036
+--- !u!43 &172848753
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3809,6 +3809,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6241364497434623426, guid: dd0c92c85cd5d2647b2ec06e55b1c7fe, type: 3}
+      propertyPath: GradeMap
+      value: 
+      objectReference: {fileID: 11400000, guid: 5769c8c1eeee62645839e5200b8f414f, type: 2}
     - target: {fileID: 6241364497434623426, guid: dd0c92c85cd5d2647b2ec06e55b1c7fe, type: 3}
       propertyPath: OnSelectNPC.m_PersistentCalls.m_Calls.Array.size
       value: 1

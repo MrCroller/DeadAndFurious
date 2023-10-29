@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d25c2e7f83f4694cbf4f2831116134e, type: 3}
   m_Name: "\u041C\u0430\u043D\u0435\u0432\u0440"
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _name: 
+  _icon: {fileID: 21300000, guid: 57a0be2be2d3ec5418c4f022df52ae9d, type: 3}
+  _name: "\u041C\u0430\u043D\u0435\u0432\u0440"
   _speed: 0
-  _movementSmoothing: 0
+  _movementSmoothing: 0.1
   _damage: 0
   _speedAtackDelay: 0
