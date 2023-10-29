@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using DF.Data;
 using DF.Extension;
+using DF.Interface;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,8 +24,7 @@ namespace DF.UI
 
         [SerializeField] private SkillGradeLevelConfig GradeMap;
 
-        public UnityEvent<PassiveGradePlayer> OnSelectPassiveSkill;
-        public UnityEvent<NPCConfig> OnSelectNPC;
+        public UnityEvent<ISkillInfo> OnSelect;
 
         private float _saveValue;
         private float _saveLVL;
@@ -35,19 +35,19 @@ namespace DF.UI
         {
             _attackSkill.Button.onClick.AddListener(() => 
             { 
-                OnSelectPassiveSkill.Invoke(_attackSkill.SelectPassive); 
+                OnSelect.Invoke(_attackSkill.SelectSkill); 
                 _skillPanel.Deactivate();
                 Time.timeScale = 1f;
             });
             _npsSlot.Button.onClick.AddListener(() => 
-            { 
-                OnSelectNPC.Invoke(_npsSlot.SelectNPC); 
+            {
+                OnSelect.Invoke(_npsSlot.SelectSkill); 
                 _skillPanel.Deactivate();
                 Time.timeScale = 1f;
             });
             _moveSkill.Button.onClick.AddListener(() => 
             { 
-                OnSelectPassiveSkill.Invoke(_moveSkill.SelectPassive); 
+                OnSelect.Invoke(_moveSkill.SelectSkill); 
                 _skillPanel.Deactivate();
                 Time.timeScale = 1f;
             });
@@ -55,8 +55,7 @@ namespace DF.UI
 
         private void Start()
         {
-            OnSelectPassiveSkill ??= new();
-            OnSelectNPC ??= new();
+            OnSelect ??= new();
 
             _skillPanel.Deactivate();
         }
@@ -97,9 +96,9 @@ namespace DF.UI
 
                 _saveLVL++;
 
-                _attackSkill.RandomSetPassive(GradeMap.AttackGrade);
-                _npsSlot.RandomSetNPC(GradeMap.NPC);
-                _moveSkill.RandomSetPassive(GradeMap.MovementGrade);
+                _attackSkill.SetInfo(GradeMap.AttackGrade);
+                _npsSlot.SetInfo(GradeMap.NPC);
+                _moveSkill.SetInfo(GradeMap.MovementGrade);
             }
         }
     }

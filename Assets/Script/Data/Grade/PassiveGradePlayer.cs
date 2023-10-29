@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using DF.Interface;
 using UnityEngine;
 
 
 namespace DF.Data
 {
     [CreateAssetMenu(fileName = nameof(PassiveGradePlayer), menuName = "DF/Configs/Grade/Passive")]
-    public class PassiveGradePlayer : ScriptableObject
+    public class PassiveGradePlayer : ScriptableObject, ISkillInfo
     {
         #region Fields
 
@@ -37,6 +39,21 @@ namespace DF.Data
         public float MovementSmoothing => _movementSmoothing;
         public float Damage => _damage;
         public float SpeedAtackDelay => _speedAtackDelay;
+
+        public string Description
+        {
+            get
+            {
+                StringBuilder description = new();
+
+                if (Speed > 0) description.Append($"Скорость +{Speed}\n");
+                if (MovementSmoothing > 0) description.Append($"Резвость +{MovementSmoothing}\n");
+                if (Damage > 0) description.Append($"Урон +{Damage}\n");
+                if (SpeedAtackDelay > 0) description.Append($"Скорость атаки +{SpeedAtackDelay}\n");
+
+                return description.ToString();
+            }
+        }
 
         #endregion
     }

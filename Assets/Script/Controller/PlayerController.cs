@@ -62,28 +62,30 @@
 
         public void Init()
         {
-            Input.OnMovementEvent += OnMoveInput;
-            Input.OnFireEvent += OnFireInput;
-            Input.OnTakeGun += TakeNewGun;
-            Input.OnTakeExp += AddExp;
-            Input.OnTakeDamage += TakeDamage;
-            Input.OnTakeSkill += TakeSkill;
-            Input.OnTakeNPC += TakeNPC;
+            Input.OnMovementEvent   += OnMoveInput;
+            Input.OnFireEvent       += OnFireInput;
+            Input.OnTakeGun         += TakeNewGun;
+            Input.OnTakeExp         += AddExp;
+            EnemyController.OnDeath += AddExp;
+            Input.OnTakeDamage      += TakeDamage;
+            Input.OnTakeSkill       += TakeSkill;
+            Input.OnTakeNPC         += TakeNPC;
 
             _data.LVL = 1;
 
-            Input.GunObject.sprite = _data.CurrentGun.Sprite;
+            Input.GunObject.sprite = _data.CurrentGun.Icon;
         }
 
         public void Dispose()
         {
-            Input.OnMovementEvent -= OnMoveInput;
-            Input.OnFireEvent -= OnFireInput;
-            Input.OnTakeGun -= TakeNewGun;
-            Input.OnTakeExp -= AddExp;
-            Input.OnTakeDamage -= TakeDamage;
-            Input.OnTakeSkill -= TakeSkill;
-            Input.OnTakeNPC -= TakeNPC;
+            Input.OnMovementEvent   -= OnMoveInput;
+            Input.OnFireEvent       -= OnFireInput;
+            Input.OnTakeGun         -= TakeNewGun;
+            Input.OnTakeExp         -= AddExp;
+            EnemyController.OnDeath -= AddExp;
+            Input.OnTakeDamage      -= TakeDamage;
+            Input.OnTakeSkill       -= TakeSkill;
+            Input.OnTakeNPC         -= TakeNPC;
 
             foreach (var pool in _bulletPoolMap.Values)
             {
@@ -124,7 +126,7 @@
         {
             _data.CurrentGun = gun;
 
-            Input.GunObject.sprite = _data.CurrentGun.Sprite;
+            Input.GunObject.sprite = _data.CurrentGun.Icon;
             Input.PlaySound(Input.SwapGunSound);
 
             if (!_bulletPoolMap.ContainsKey(gun))

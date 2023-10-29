@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using DF.Interface;
+using UnityEngine;
 
 namespace DF.Data
 {
     [CreateAssetMenu(fileName = "NPC", menuName = "DF/Configs/Grade/NPC")]
-    public class NPCConfig : ScriptableObject
+    public class NPCConfig : ScriptableObject, ISkillInfo
     {
         #region Fields
 

@@ -29,7 +29,11 @@ namespace DF.ObjectPool
             }
         }
 
-        public void Clear() => ObjectsPool.Clear();
+        public void Clear()
+        {
+            ObjectsPool.Clear();
+            _timersPool.Dispose();
+        }
 
         /// <summary>
         /// Получить объект из пула

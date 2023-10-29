@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DF.Interface;
+using UnityEngine;
 
 namespace DF.Data
 {
@@ -8,18 +9,18 @@ namespace DF.Data
 
         #region Fields
 
-        [SerializeField] private PassiveGradePlayer[] _attackGrade;
-        [SerializeField] private NPCConfig[] _npc;
-        [SerializeField] private PassiveGradePlayer[] _movementGrade;
+        [SerializeField] private ISkillInfo[] _attackGrade;
+        [SerializeField] private ISkillInfo[] _npc;
+        [SerializeField] private ISkillInfo[] _movementGrade;
 
         #endregion
 
 
         #region Properties
 
-        public PassiveGradePlayer[] AttackGrade => _attackGrade;
-        public NPCConfig[] NPC => _npc;
-        public PassiveGradePlayer[] MovementGrade => _movementGrade;
+        public ISkillInfo[] AttackGrade => _attackGrade;
+        public ISkillInfo[] NPC => _npc;
+        public ISkillInfo[] MovementGrade => _movementGrade;
 
         #endregion
 

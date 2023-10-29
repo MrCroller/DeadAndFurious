@@ -74,6 +74,7 @@ namespace UnityEngineTimers
 
         public void Dispose()
         {
+            foreach (var timer in _timers) timer.Stop();
             _timers.Clear();
         }
 

@@ -4,6 +4,7 @@
     using System.Linq;
     using DF.Data;
     using DF.Extension;
+    using DF.Interface;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.InputSystem;
@@ -66,14 +67,23 @@
             }
         }
 
-        public void OnTakePassiveSkillHandler(PassiveGradePlayer skill)
+        public void OnTakeGradeHandler(ISkillInfo skill)
         {
-            OnTakeSkill?.Invoke(skill);
-        }
+            switch (skill)
+            {
+                case PassiveGradePlayer passive:
+                    OnTakeSkill?.Invoke(passive);
+                    break;
 
-        public void OnTakeNPCHandler(NPCConfig npc)
-        {
-            OnTakeNPC?.Invoke(npc);
+                case GunConfig gun:
+                    OnTakeGun?.Invoke(gun);
+                    break;
+
+                case NPCConfig npc:
+                    OnTakeNPC?.Invoke(npc);
+                    break;
+            }
+            
         }
 
         public void OnTakeDamageHandler(int value)
