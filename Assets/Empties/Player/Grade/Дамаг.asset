@@ -16,5 +16,5 @@ MonoBehaviour:
   _name: "\u0423\u0440\u043E\u043D"
   _speed: 0
   _movementSmoothing: 0
-  _damage: 0.5
+  _damage: 1
   _speedAtackDelay: 0

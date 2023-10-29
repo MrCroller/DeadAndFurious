@@ -17,4 +17,4 @@ MonoBehaviour:
   _speed: 0
   _movementSmoothing: 0
   _damage: 0
-  _speedAtackDelay: 0.25
+  _speedAtackDelay: 0.5
