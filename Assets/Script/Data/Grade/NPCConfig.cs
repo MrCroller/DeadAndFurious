@@ -11,6 +11,7 @@ namespace DF.Data
         [SerializeField] private Sprite _icon;
         [SerializeField] private string _name;
         [SerializeField] private string _description;
+        [SerializeField] private DialogConfig _dialog;
 
         #endregion
 
@@ -20,6 +21,7 @@ namespace DF.Data
         public Sprite Icon => _icon;
         public string Name => _name;
         public string Description => _description;
+        public DialogConfig Dialog => _dialog;
 
         #endregion
     }

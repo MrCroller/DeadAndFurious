@@ -5,6 +5,7 @@
     using DF.Data;
     using DF.Extension;
     using DF.Interface;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.InputSystem;
@@ -30,6 +31,16 @@
         public Slider HPBar;
         public Image ReloadBar;
         public SpriteRenderer GunObject;
+        public SpriteRenderer NPC;
+
+        public TMP_Text ManagerText;
+        public TMP_Text NPCText;
+        public TMP_Text HaronText;
+        [Tooltip("Задержка в между текстами")]
+        public float TextDelay;
+        public DialogConfig HaronDialog;
+        public DialogConfig ManagerDialog;
+
         [SerializeField] private AudioSource _audioSource;
 
         [Header("Исходники звуков")]
@@ -47,6 +58,10 @@
             OnExpChange   ??= new();
             OnHPChange    ??= new();
             OnPlayerDeath ??= new();
+
+            ManagerText.text = "";
+            NPCText.text = "";
+            HaronText.text = "";
         }
 
         private void Reset()

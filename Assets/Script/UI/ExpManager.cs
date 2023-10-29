@@ -96,7 +96,9 @@ namespace DF.UI
 
                 _saveLVL++;
 
-                _attackSkill.SetInfo(GradeMap.AttackGrade);
+                ISkillInfo[][] attack = { GradeMap.AttackGrade, GradeMap.GunGrade };
+
+                _attackSkill.SetInfo(attack.RandomElement());
                 _npsSlot.SetInfo(GradeMap.NPC);
                 _moveSkill.SetInfo(GradeMap.MovementGrade);
             }

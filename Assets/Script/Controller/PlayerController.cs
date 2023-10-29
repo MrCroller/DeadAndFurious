@@ -2,20 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using DF.Data;
     using DF.Extension;
     using DF.Input;
     using DF.Interface;
     using DF.Model;
     using DF.ObjectPool;
-    using Unity.VisualScripting;
+    using TimersSystemUnity.Extension;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngineTimers;
-    using static Cinemachine.DocumentationSortingAttribute;
-    using static UnityEngine.Rendering.DebugUI;
     using PlayerInput = Input.PlayerInput;
+    using Random = UnityEngine.Random;
 
     public sealed class PlayerController : IExecute, IExecuteLater, IDisposable
     {
@@ -31,8 +30,11 @@
         private float _angleRotaitGun;
         private bool _pressFlag = false;
         private bool _soundFlag = false;
+        private bool _textFlag = false;
+        private TimersPool _timers;
 
         private Dictionary<GunConfig, ObjectPool<BulletInput>> _bulletPoolMap;
+        private Dictionary<Unit, string[]> _dialogs;
         private Transform _bulletParent;
 
         public Vector2 CursorPosition
@@ -57,7 +59,7 @@
 
             _bulletPoolMap = new()
             { {_data.CurrentGun, new(_bulletParent) } };
-
+            _dialogs = new();
         }
 
         public void Init()
@@ -70,8 +72,12 @@
             Input.OnTakeDamage      += TakeDamage;
             Input.OnTakeSkill       += TakeSkill;
             Input.OnTakeNPC         += TakeNPC;
+            
+            _timers = TimersPool.GetInstance();
 
             _data.LVL = 1;
+            _dialogs.Add(Unit.Manager, Input.ManagerDialog.Texts);
+            _dialogs.Add(Unit.Haron, Input.HaronDialog.Texts);
 
             Input.GunObject.sprite = _data.CurrentGun.Icon;
         }
@@ -118,8 +124,44 @@
             {
                 _soundFlag = true;
                 Input.PlaySound(Input.SwimSound.RandomElement());
-                TimersPool.GetInstance().StartTimer(() => _soundFlag = false, Input.SwimDelay);
+                _timers.StartTimer(() => _soundFlag = false, Input.SwimDelay);
             }
+
+            if (!_textFlag)
+            {
+                _textFlag = true;
+                _timers.StartTimer(PlayText, Input.TextDelay + Random.Range(-2f, 2f));
+            }
+        }
+
+        private void PlayText()
+        {
+            Unit randomUnit = Extension.GetRandomValue<Unit>();
+
+            if (randomUnit == Unit.NPC & _data.CurrentNPC == null) return;
+
+            var text = _dialogs[randomUnit].RandomElement();
+
+            switch (randomUnit)
+            {
+                case Unit.Manager:
+                    TextAnim(Input.ManagerText, text);
+                        break;
+                case Unit.Haron:
+                    TextAnim(Input.HaronText, text);
+                    break;
+                case Unit.NPC:
+                    TextAnim(Input.NPCText, text);
+                    break;
+            }
+
+            _textFlag = false;
+        }
+
+        private void TextAnim(TMP_Text tmp, string str)
+        {
+            tmp.text = str;
+            tmp.SetAplhaDynamic(1f, 3f, 1f, false);
         }
 
         private void TakeNewGun(GunConfig gun)
@@ -143,6 +185,8 @@
         private void TakeNPC(NPCConfig npc)
         {
             _data.CurrentNPC = npc;
+            Input.NPC.sprite = npc.Icon;
+            _dialogs[Unit.NPC] = _data.CurrentNPC.Dialog.Texts;
         }
 
         private void AddExp(int count)
@@ -216,5 +260,12 @@
 
         #endregion
 
+    }
+
+    enum Unit
+    {
+        Manager,
+        Haron,
+        NPC
     }
 }

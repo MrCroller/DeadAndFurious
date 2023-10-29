@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DF.Data;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting;
 
 namespace DF.Model
 {
@@ -79,6 +77,7 @@ namespace DF.Model
             _baseSpeedAtackDelay = config.SpeedAtackDelay;
 
             CurrentGun = config.DefaultGun;
+            CurrentNPC = null;
             IsGunReload = false;
 
             GradeMap = config.LevelGradeMap.Map.ToList();

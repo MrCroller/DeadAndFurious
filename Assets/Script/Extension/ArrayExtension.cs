@@ -18,5 +18,12 @@ namespace DF.Extension
             int randomIndex = Random.Range(0, array.Length);
             return array[randomIndex];
         }
+
+        public static T GetRandomValue<T>()
+        {
+            Array enumValues = Enum.GetValues(typeof(T));
+            int randomIndex = Random.Range(0, enumValues.Length);
+            return (T)enumValues.GetValue(randomIndex);
+        }
     }
 }

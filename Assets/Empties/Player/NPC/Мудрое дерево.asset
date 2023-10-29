@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: "\u041C\u0443\u0434\u0440\u043E\u0435 \u0434\u0435\u0440\u0435\u0432\u043E"
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: ea190062612dce141bda64c61f525d64, type: 3}
-  _name: 
-  _description: 
+  _name: "\u041C\u0443\u0434\u0440\u043E\u0435 \u0414\u0435\u0440\u0435\u0432\u043E"
+  _description: "\u042F \u0434\u0435\u0440\u0435\u0432\u044F\u043D\u043D\u044B\u0439
+    \u043C\u042D\u043D\u0442"
+  _dialog: {fileID: 11400000, guid: 92def25df3e21a04da1439964c96276d, type: 2}
