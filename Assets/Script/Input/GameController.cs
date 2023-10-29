@@ -38,6 +38,7 @@ namespace DF.Input
         [SerializeField] private Fader faderOption;
         [SerializeField]
         private Transform _enemySpawnZone = default;
+        [field: SerializeField] internal MusicManager MusicManager { get; private set; }
 
         #endregion
 

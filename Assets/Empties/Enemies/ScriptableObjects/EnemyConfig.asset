@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9ce848a60b5c741a7ef09735b3913a, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 11400000, guid: ac7da51d2cea09645bf8e9f252c94106, type: 2}
-  _enemySpeed: 0.1
+  _enemySpeed: 0.01
+  _enemyShootInterval: 0.3
