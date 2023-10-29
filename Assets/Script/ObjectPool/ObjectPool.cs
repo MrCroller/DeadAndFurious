@@ -1,11 +1,12 @@
 namespace DF.ObjectPool
 {
+    using System;
     using System.Collections.Generic;
     using DF.Extension;
     using UnityEngine;
     using UnityEngineTimers;
 
-    public class ObjectPool<T> where T : Component
+    public class ObjectPool<T> : IDisposable where T : Component
     {
         private Transform _objectsParent = default;
 
@@ -84,6 +85,11 @@ namespace DF.ObjectPool
             GameObject createdObj = GameObject.Instantiate(prefab.gameObject, _objectsParent);
             T objT = createdObj.GetComponent<T>();
             return objT;
+        }
+
+        void IDisposable.Dispose()
+        {
+            Clear();
         }
     }
 }
