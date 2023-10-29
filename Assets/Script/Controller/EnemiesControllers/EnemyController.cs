@@ -2,8 +2,10 @@
 {
     using DF.Data;
     using DF.Input;
+    using DF.ObjectPool;
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
 
     public class EnemyController : MonoBehaviour
@@ -13,19 +15,31 @@
         /// </summary>
         public static event Action<int> OnDeath = delegate { };
 
-        [SerializeField]
         private EnemyInput _enemy = default;
         private bool isMove = true;
 
         private float _speed;
         private EnemyConfig _enemyConfig;
 
-        private void OnEnable()
+        private ObjectPool<BulletInput> _bulletPool;
+
+        private Coroutine _shootCoroutine = default;
+
+        public void Init(EnemyInput enemy)
         {
+            _enemy = enemy;
             isMove = true;
             _enemyConfig = _enemy.EnemyConfig;
             _speed = _enemyConfig.EnemySpeed;
-            //StartCoroutine(Shoot());
+            _bulletPool = _enemy.BulletPool;
+            if(_shootCoroutine != null)
+            {
+                StopCoroutine(_shootCoroutine);
+            }
+            if (_enemy.CarClass.IsShoot)
+            {
+                _shootCoroutine = StartCoroutine(Shoot());
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -67,19 +81,38 @@
 
         private IEnumerator Shoot()
         {
-            _enemy.BulletSpawn.transform.LookAt(_enemy.Player.transform);
-            yield return new WaitForSeconds(_enemyConfig.EnemyShootInterval);
+            BulletInput bullet = _bulletPool.GetObjectFromPool(_enemy.EnemyConfig.Weapon.Bullet, _enemy.EnemyConfig.Weapon.BulletLifeTime);
+            bullet.transform.position = _enemy.BulletSpawn.position;
+            bullet._bulletSource = BulletSource.EnemyBullet;
+            Rigidbody2D bulletRb = bullet.Rigidbody;
+            Vector2 direction = _enemy.Player.gameObject.transform.position - _enemy.BulletSpawn.transform.position;
+            bulletRb.AddForce(direction * _enemy.EnemyConfig.Weapon.FireForse, ForceMode2D.Impulse);
+
+            yield return new WaitForSeconds(_enemyConfig.Weapon.AttackDelay);
         }
 
         private void DisableEnemy()
         {
             _enemy.EnemyObjectPool.AddToPool(_enemy);
+            if (_shootCoroutine != null)
+            {
+                StopCoroutine(_shootCoroutine);
+            }
+            _shootCoroutine = null;
         }
 
         private void Death()
         {
             OnDeath(_enemy.CarClass.ExpPoint);
             DisableEnemy();
+        }
+        private void OnDestroy()
+        {
+            if (_shootCoroutine != null)
+            {
+                StopCoroutine(_shootCoroutine);
+            }
+            _shootCoroutine = null;
         }
     }
 }
