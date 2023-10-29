@@ -5,6 +5,7 @@ namespace DF.Data
     [CreateAssetMenu(fileName = nameof(SkillGradeLevelConfig), menuName = "DF/Configs/Grade/SkillLevelMap")]
     public class SkillGradeLevelConfig : ScriptableObject
     {
+
         #region Fields
 
         [SerializeField] private PassiveGradePlayer[] _attackGrade;

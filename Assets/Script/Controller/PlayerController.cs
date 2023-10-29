@@ -67,6 +67,8 @@
             Input.OnTakeGun += TakeNewGun;
             Input.OnTakeExp += AddExp;
             Input.OnTakeDamage += TakeDamage;
+            Input.OnTakeSkill += TakeSkill;
+            Input.OnTakeNPC += TakeNPC;
 
             _data.LVL = 1;
 
@@ -80,6 +82,8 @@
             Input.OnTakeGun -= TakeNewGun;
             Input.OnTakeExp -= AddExp;
             Input.OnTakeDamage -= TakeDamage;
+            Input.OnTakeSkill -= TakeSkill;
+            Input.OnTakeNPC -= TakeNPC;
 
             foreach (var pool in _bulletPoolMap.Values)
             {
@@ -127,6 +131,16 @@
             {
                 _bulletPoolMap.Add(gun, new(_bulletParent));
             }
+        }
+
+        private void TakeSkill(PassiveGradePlayer skill)
+        {
+            _data.Grades.Add(skill);
+        }
+
+        private void TakeNPC(NPCConfig npc)
+        {
+            _data.CurrentNPC = npc;
         }
 
         private void AddExp(int count)

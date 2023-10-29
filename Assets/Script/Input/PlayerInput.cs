@@ -17,6 +17,8 @@
         public event Action<GunConfig> OnTakeGun;
         public event Action<int> OnTakeExp;
         public event Action<int> OnTakeDamage;
+        public event Action<PassiveGradePlayer> OnTakeSkill;
+        public event Action<NPCConfig> OnTakeNPC;
 
         public UnityEvent<int> OnLVLChange;
         public UnityEvent<float, float> OnExpChange;
@@ -66,12 +68,12 @@
 
         public void OnTakePassiveSkillHandler(PassiveGradePlayer skill)
         {
-            Debug.Log($"Дан скилл: {skill.Name}");
+            OnTakeSkill?.Invoke(skill);
         }
 
         public void OnTakeNPCHandler(NPCConfig npc)
         {
-            Debug.Log($"Дан нпс: {npc.Name}");
+            OnTakeNPC?.Invoke(npc);
         }
 
         public void OnTakeDamageHandler(int value)

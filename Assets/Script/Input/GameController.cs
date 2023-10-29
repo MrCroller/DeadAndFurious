@@ -135,6 +135,7 @@ namespace DF.Input
         private void OnDestroy()
         {
             Unsubscribe();
+            _playerController.Dispose();
         }
 
         private void Subscribe()

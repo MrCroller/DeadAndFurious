@@ -33,9 +33,24 @@ namespace DF.UI
 
         private void Awake()
         {
-            _attackSkill.Button.onClick.AddListener(() => { OnSelectPassiveSkill.Invoke(_attackSkill.SelectPassive); _skillPanel.Deactivate(); });
-            _npsSlot.Button.onClick.AddListener(() => { OnSelectNPC.Invoke(_npsSlot.SelectNPC); _skillPanel.Deactivate(); });
-            _moveSkill.Button.onClick.AddListener(() => { OnSelectPassiveSkill.Invoke(_moveSkill.SelectPassive); _skillPanel.Deactivate(); });
+            _attackSkill.Button.onClick.AddListener(() => 
+            { 
+                OnSelectPassiveSkill.Invoke(_attackSkill.SelectPassive); 
+                _skillPanel.Deactivate();
+                Time.timeScale = 1f;
+            });
+            _npsSlot.Button.onClick.AddListener(() => 
+            { 
+                OnSelectNPC.Invoke(_npsSlot.SelectNPC); 
+                _skillPanel.Deactivate();
+                Time.timeScale = 1f;
+            });
+            _moveSkill.Button.onClick.AddListener(() => 
+            { 
+                OnSelectPassiveSkill.Invoke(_moveSkill.SelectPassive); 
+                _skillPanel.Deactivate();
+                Time.timeScale = 1f;
+            });
         }
 
         private void Start()
@@ -78,6 +93,7 @@ namespace DF.UI
             if( lvl > _saveLVL) 
             {
                 _skillPanel.Activate();
+                Time.timeScale = 0f;
 
                 _saveLVL++;
 
