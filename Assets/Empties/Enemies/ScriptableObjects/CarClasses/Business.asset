@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Business
   m_EditorClassIdentifier: 
   _carClass: 2
-  _shipPrefab: {fileID: 6769748285513715285, guid: ce5692e67b741ec46b2fa084814f8b9b, type: 3}
+  _shipPrefab: {fileID: 9181042530821398723, guid: ce5692e67b741ec46b2fa084814f8b9b, type: 3}
   _expPoint: 3
   _HP: 10

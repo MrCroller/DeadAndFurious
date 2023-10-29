@@ -46,14 +46,16 @@
 
         private void GetDamage(int damage)
         {
-            int hp = _enemy.CarClass.HP;
-            _enemy.UpdateHP(hp - damage);
+            _enemy.HP -= damage;
 
-            _enemy.OnHPChange.Invoke(_enemy.HP , _enemy.CarClass.HP);
-
-            if(_enemy.HP <= 0)
+            if (_enemy.HP <= 0)
             {
+                _enemy.OnHPChange.Invoke(0, _enemy.MAXHP);
                 Death();
+            }
+            else
+            {
+                _enemy.OnHPChange.Invoke(_enemy.HP, _enemy.MAXHP);
             }
         }
 

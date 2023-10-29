@@ -33,8 +33,8 @@ namespace DF.Input
         public PlayerInput Player => _player;
         public ObjectPool<EnemyInput> EnemyObjectPool => _enemyObjectPool;
 
-        private int _hp = 0;
-        public int HP => _hp;
+        public int HP { get; set; }
+        public int MAXHP { get; private set; }
 
         private void Start()
         {
@@ -51,12 +51,8 @@ namespace DF.Input
             _player = player;
             _enemyObjectPool = enemyObjectPool;
 
-            _hp = _carClass.HP;
-        }
-
-        public void UpdateHP(int value)
-        {
-            _hp = value;
+            HP = _carClass.HP;
+            MAXHP = _carClass.HP;
         }
 
         public void UpdateVisual()
