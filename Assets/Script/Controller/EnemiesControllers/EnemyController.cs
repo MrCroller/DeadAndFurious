@@ -35,7 +35,7 @@
                 isMove = false;
                 DisableEnemy();
             }
-            if(collision.TryGetComponent<Bullet>(out Bullet bullet))
+            if(collision.TryGetComponent<BulletInput>(out BulletInput bullet))
             {
                 if(bullet._bulletSource == BulletSource.PlayerBullet)
                 {

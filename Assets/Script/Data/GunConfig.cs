@@ -16,7 +16,7 @@ namespace DF.Data
         [Tooltip("Сила выстрела")]
         [SerializeField] private float _fireForse;
         [Tooltip("Префаб пули")]
-        [SerializeField] private Bullet _bullet;
+        [SerializeField] private BulletInput _bullet;
         [Tooltip("Время жизни пули")]
         [SerializeField] private float _bulletTimeLife;
 
@@ -28,7 +28,7 @@ namespace DF.Data
         public Sprite Sprite => _sprite;
         public float AttackDelay => _attackDelay;
         public float FireForse => _fireForse;
-        public Bullet Bullet => _bullet;
+        public BulletInput Bullet => _bullet;
         public float BulletLifeTime => _bulletTimeLife;
 
         #endregion

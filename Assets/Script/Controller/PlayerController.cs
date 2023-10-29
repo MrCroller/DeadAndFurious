@@ -131,7 +131,7 @@
             if (_data.IsGunReload || !_pressFlag) return;
             _data.IsGunReload = true;
 
-            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.Bullet.GetComponent<Rigidbody2D>(), _data.CurrentGun.BulletLifeTime);
+            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.Bullet.Rigidbody, _data.CurrentGun.BulletLifeTime);
             ResetBullet(bullet);
 
             Vector2 direction = CursorPosition - (Vector2)Input.GunObject.transform.position;

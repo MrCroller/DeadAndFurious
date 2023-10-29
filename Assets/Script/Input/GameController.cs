@@ -35,7 +35,7 @@ namespace DF.Input
         [SerializeField]
         private Transform _enemyParent = default;
         [SerializeField]
-        private Bullet _bulletPrefab = default;
+        private BulletInput _bulletPrefab = default;
         [SerializeField] private OptionInput optionMenu;
         [SerializeField] private Fader faderOption;
         [SerializeField]
