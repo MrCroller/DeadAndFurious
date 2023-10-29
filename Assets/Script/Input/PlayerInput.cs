@@ -11,14 +11,15 @@
 
     public sealed class PlayerInput : MonoBehaviour
     {
-        public event Action<Vector2>   OnMovementEvent;
-        public event Action            OnFireEvent;
-        public event Action            OnOpenOptionEvent;
+        public event Action<Vector2> OnMovementEvent;
+        public event Action OnFireEvent;
+        public event Action OnOpenOptionEvent;
         public event Action<GunConfig> OnTakeGun;
-        public event Action<int>       OnTakeExp;
-        public event Action<int>       OnTakeDamage;
+        public event Action<int> OnTakeExp;
+        public event Action<int> OnTakeDamage;
 
-        public UnityEvent OnLVLUp;
+        public UnityEvent<int> OnLVLChange;
+        public UnityEvent<float, float> OnExpChange;
         public UnityEvent<float, float> OnHPChange;
         public UnityEvent OnPlayerDeath;
 
@@ -39,7 +40,8 @@
 
         private void Start()
         {
-            OnLVLUp       ??= new();
+            OnLVLChange   ??= new();
+            OnExpChange   ??= new();
             OnHPChange    ??= new();
             OnPlayerDeath ??= new();
         }
@@ -53,9 +55,9 @@
         {
             if (collision.TryGetComponent<BulletInput>(out BulletInput bullet))
             {
-                PlaySound(HitSound.RandomElement());
                 if (bullet.bulletSource == BulletSource.EnemyBullet)
                 {
+                    PlaySound(HitSound.RandomElement());
                     OnTakeDamageHandler(bullet.Damage);
                     bullet.bulletPool.AddToPool(bullet);
                 }

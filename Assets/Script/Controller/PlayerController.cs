@@ -14,6 +14,7 @@
     using UnityEngine.InputSystem;
     using UnityEngineTimers;
     using static Cinemachine.DocumentationSortingAttribute;
+    using static UnityEngine.Rendering.DebugUI;
     using PlayerInput = Input.PlayerInput;
 
     public sealed class PlayerController : IExecute, IExecuteLater, IDisposable
@@ -48,24 +49,26 @@
 
         #region ClassLife
 
-        public PlayerController(PlayerInput input, PlayerConfig config, Transform bulletParent) 
+        public PlayerController(PlayerInput input, PlayerConfig config, Transform bulletParent)
         {
             Input = input;
             _data = new PlayerModel(config);
             _bulletParent = bulletParent;
 
-            _bulletPoolMap = new() 
+            _bulletPoolMap = new()
             { {_data.CurrentGun, new(_bulletParent) } };
-            
+
         }
 
         public void Init()
         {
             Input.OnMovementEvent += OnMoveInput;
-            Input.OnFireEvent     += OnFireInput;
-            Input.OnTakeGun       += TakeNewGun;
-            Input.OnTakeExp       += AddExp;
-            Input.OnTakeDamage    += TakeDamage;
+            Input.OnFireEvent += OnFireInput;
+            Input.OnTakeGun += TakeNewGun;
+            Input.OnTakeExp += AddExp;
+            Input.OnTakeDamage += TakeDamage;
+
+            _data.LVL = 1;
 
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
         }
@@ -73,10 +76,10 @@
         public void Dispose()
         {
             Input.OnMovementEvent -= OnMoveInput;
-            Input.OnFireEvent     -= OnFireInput;
-            Input.OnTakeGun       -= TakeNewGun;
-            Input.OnTakeExp       -= AddExp;
-            Input.OnTakeDamage    -= TakeDamage;
+            Input.OnFireEvent -= OnFireInput;
+            Input.OnTakeGun -= TakeNewGun;
+            Input.OnTakeExp -= AddExp;
+            Input.OnTakeDamage -= TakeDamage;
 
             foreach (var pool in _bulletPoolMap.Values)
             {
@@ -105,7 +108,7 @@
 
             OnFire();
 
-            if(!_soundFlag && _moveInput != Vector2.zero)
+            if (!_soundFlag && _moveInput != Vector2.zero)
             {
                 _soundFlag = true;
                 Input.PlaySound(Input.SwimSound.RandomElement());
@@ -184,28 +187,14 @@
         {
             if (_data.LVL >= _data.LVLCup) return _data.LVL;
 
-            int totalRequiredExp = 0;
-            int index = 0;
-            int lvl = 0;
-
-            do
+            if (_data.XP >= _data.XPNeed)
             {
-                totalRequiredExp += _data.GradeMap[index];
-                index = index < _data.GradeMap.Count ? index++ : index;
+                _data.LVL++;
+                _data.XP = _data.XPNeed - _data.XP;
+                Input.OnLVLChange.Invoke(_data.LVL);
+            }
 
-                if (_data.XP >= totalRequiredExp)
-                {
-                    lvl++;
-                }
-
-                if (_data.LVL < lvl)
-                {
-                    _data.LVL++;
-                    Input.OnLVLUp?.Invoke();
-                }
-
-            } while (_data.XP >= totalRequiredExp);
-
+            Input.OnExpChange.Invoke(_data.XP, _data.XPNeed);
             return _data.LVL;
         }
 

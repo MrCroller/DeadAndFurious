@@ -36,6 +36,8 @@ namespace DF.Model
 
         public int XP { get; set; }
 
+        public int XPNeed => LVL > GradeMap.Count ? GradeMap.Last() : GradeMap[LVL - 1];
+
         public int LVL { get; set; }
 
         public float CurrentSpeed
