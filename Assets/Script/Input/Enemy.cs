@@ -12,6 +12,10 @@ namespace DF.Input
         [SerializeField]
         private GameObject _bulletSpawn;
         [SerializeField]
+        private SpriteRenderer _shipBorder;
+        [SerializeField]
+        private SpriteRenderer _managerSprite;
+        [SerializeField]
         private Slider _hpBar;
 
         private CarClassConfig _carClass = default;
@@ -53,8 +57,9 @@ namespace DF.Input
 
         public void UpdateVisual()
         {
+            _shipBorder.color = _company.CompanyColor;
+            _managerSprite.sprite = _company.ManagerSprite;
             UpdateHpBar(1);
-            //Изменить цвет в зависимости от компании
         }
         
         public void UpdateHpBar(float value)

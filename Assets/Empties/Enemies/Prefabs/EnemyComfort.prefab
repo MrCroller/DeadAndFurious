@@ -303,6 +303,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyConfig: {fileID: 11400000, guid: 9eb9c113066ac3a4999bedbc97a95d0d, type: 2}
   _bulletSpawn: {fileID: 2558808828078284221}
+  _shipBorder: {fileID: 8340089960588662281}
+  _managerSprite: {fileID: 120745117443681850}
   _hpBar: {fileID: 7027261436148330823}
 --- !u!114 &4047960198144835633
 MonoBehaviour:
@@ -325,6 +327,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7437024401878991258}
     m_Modifications:
+    - target: {fileID: 1544256102418921665, guid: 9d5426d1ce0880e4b9ebe6ac02c66913, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1740906674, guid: 66e7eef48ba7b7a4ca3eeb27a45a84c3, type: 3}
+    - target: {fileID: 1544256102418921665, guid: 9d5426d1ce0880e4b9ebe6ac02c66913, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7620807181905159510, guid: 9d5426d1ce0880e4b9ebe6ac02c66913, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -374,6 +384,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d5426d1ce0880e4b9ebe6ac02c66913, type: 3}
+--- !u!212 &120745117443681850 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1544256102418921665, guid: 9d5426d1ce0880e4b9ebe6ac02c66913, type: 3}
+  m_PrefabInstance: {fileID: 1495957815829681915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9007267924562195373 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7620807181905159510, guid: 9d5426d1ce0880e4b9ebe6ac02c66913, type: 3}
@@ -390,6 +405,14 @@ PrefabInstance:
     - target: {fileID: 623865997265584692, guid: 53f470be1923d22479e73183e262cde6, type: 3}
       propertyPath: m_Name
       value: "\u0412\u043E\u0434\u0438\u0442\u0435\u043B\u044C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437330574509538800, guid: 53f470be1923d22479e73183e262cde6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -259012646, guid: 66e7eef48ba7b7a4ca3eeb27a45a84c3, type: 3}
+    - target: {fileID: 1437330574509538800, guid: 53f470be1923d22479e73183e262cde6, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9067858291905478076, guid: 53f470be1923d22479e73183e262cde6, type: 3}
       propertyPath: m_LocalPosition.x
