@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: "\u0420\u043E\u0433\u0430\u0442\u043A\u0430"
   m_EditorClassIdentifier: 
   _sprite: {fileID: 259853244, guid: c27ef4b5e94e6484cbfe155b6fab599d, type: 3}
-  _damage: 5
   _attackDelay: 1.34
   _fireForse: 6
-  _bulletPrefab: {fileID: 632071427425382579, guid: e945fca44ecc7de41bbf8c2d29bcbee2, type: 3}
+  _bullet: {fileID: -8629630385145992245, guid: e945fca44ecc7de41bbf8c2d29bcbee2, type: 3}
   _bulletTimeLife: 3

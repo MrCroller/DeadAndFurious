@@ -51,7 +51,7 @@ namespace DF.Model
 
         public float CurrentDamage
         {
-            get => _baseDamage + Grades.Sum(item => item.Damage) + CurrentGun.Damage;
+            get => _baseDamage + Grades.Sum(item => item.Damage) + CurrentGun.Bullet.Damage;
         }
 
         public float CurrentSpeedAtack

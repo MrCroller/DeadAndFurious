@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Econom
   m_EditorClassIdentifier: 
   _carClass: 0
-  _shipPrefab: {fileID: 6769748285513715285, guid: f3d988d3994f31644bcf768c3e009b73, type: 3}
+  _shipPrefab: {fileID: 6769748285513715285, guid: fc964fe86b1e2eb4d8f2bd66b741da1b, type: 3}
   _expPoint: 1
   _HP: 4
