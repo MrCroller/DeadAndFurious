@@ -1,7 +1,9 @@
 ﻿namespace DF.Input
 {
     using System;
+    using System.Linq;
     using DF.Data;
+    using DF.Extension;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.InputSystem;
@@ -24,6 +26,15 @@
         public Slider HPBar;
         public Image ReloadBar;
         public SpriteRenderer GunObject;
+        [SerializeField] private AudioSource _audioSource;
+
+        [Header("Исходники звуков")]
+        public AudioClip SwapGunSound;
+        public AudioClip[] HitSound;
+        public AudioClip[] SwimSound;
+        [Tooltip("Задержка в проигрывании звука плавания")]
+        public float SwimDelay;
+
         [HideInInspector] public bool IsControlable = true;
 
         private void Start()
@@ -42,6 +53,7 @@
         {
             if (collision.TryGetComponent<BulletInput>(out BulletInput bullet))
             {
+                PlaySound(HitSound.RandomElement());
                 if (bullet._bulletSource == BulletSource.EnemyBullet)
                 {
                     OnTakeDamageHandler(bullet.Damage);
@@ -61,6 +73,11 @@
         public void TakeExpHandler(int value)
         {
             OnTakeExp?.Invoke(value);
+        }
+
+        public void PlaySound(AudioClip clip)
+        {
+            _audioSource.Play(clip);
         }
 
         private void OnMovement(InputValue value)

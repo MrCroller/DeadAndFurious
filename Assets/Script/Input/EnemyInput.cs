@@ -9,7 +9,10 @@ namespace DF.Input
 
     public class EnemyInput : MonoBehaviour
     {
+
         public UnityEvent<float, float> OnHPChange;
+
+        #region Fields
 
         [SerializeField]
         private EnemyConfig _enemyConfig = default;
@@ -25,6 +28,11 @@ namespace DF.Input
         private PlayerInput _player = default;
         private ObjectPool<EnemyInput> _enemyObjectPool = default;
 
+        #endregion
+
+
+        #region Properties
+
         public EnemyConfig EnemyConfig => _enemyConfig;
         public GameObject BulletSpawn => _bulletSpawn;
 
@@ -35,6 +43,9 @@ namespace DF.Input
 
         public int HP { get; set; }
         public int MAXHP { get; private set; }
+
+        #endregion
+
 
         private void Start()
         {

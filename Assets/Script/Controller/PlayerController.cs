@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using DF.Data;
+    using DF.Extension;
     using DF.Input;
     using DF.Interface;
     using DF.Model;
@@ -28,6 +29,7 @@
         private Vector2 m_Velocity = Vector2.zero;
         private float _angleRotaitGun;
         private bool _pressFlag = false;
+        private bool _soundFlag = false;
 
         private Dictionary<GunConfig, ObjectPool<Rigidbody2D>> _bulletPoolMap;
         private Transform _bulletParent;
@@ -102,12 +104,21 @@
             Input.GunObject.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
 
             OnFire();
+
+            if(!_soundFlag && _moveInput != Vector2.zero)
+            {
+                _soundFlag = true;
+                Input.PlaySound(Input.SwimSound.RandomElement());
+                TimersPool.GetInstance().StartTimer(() => _soundFlag = false, Input.SwimDelay);
+            }
         }
 
         private void TakeNewGun(GunConfig gun)
         {
             _data.CurrentGun = gun;
+
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
+            Input.PlaySound(Input.SwapGunSound);
 
             if (!_bulletPoolMap.ContainsKey(gun))
             {
