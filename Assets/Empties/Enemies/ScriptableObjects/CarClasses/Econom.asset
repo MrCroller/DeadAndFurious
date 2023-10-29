@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Econom
   m_EditorClassIdentifier: 
   _carClass: 0
-  _shipSprite: {fileID: -1444574295, guid: 1655dab38756bba4392a8f8a0c58efd4, type: 3}
+  _shipPrefab: {fileID: 6769748285513715285, guid: f3d988d3994f31644bcf768c3e009b73, type: 3}
   _expPoint: 1
+  _HP: 4

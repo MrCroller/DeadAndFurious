@@ -28,33 +28,54 @@
             //StartCoroutine(Shoot());
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.TryGetComponent<EnemyDeadZone>(out EnemyDeadZone findedCollider))
+            {
+                isMove = false;
+                DisableEnemy();
+            }
+            if(collision.TryGetComponent<Bullet>(out Bullet bullet))
+            {
+                if(bullet._bulletSource == BulletSource.PlayerBullet)
+                {
+                    GetDamage(bullet.Damage);
+                }
+            }
+        }
+
+        private void GetDamage(int damage)
+        {
+            int hp = _enemy.CarClass.HP;
+            float HpBarValue = (float)damage / hp;
+
+            _enemy.HpBar.gameObject.SetActive(true);
+            _enemy.UpdateHP(hp - damage);
+            _enemy.UpdateHpBar(HpBarValue);
+
+            if(_enemy.HP <= 0)
+            {
+                Death();
+            }
+        }
+
         private void FixedUpdate()
         {
             if (isMove)
             {
                 _enemy.transform.position = new Vector3(_enemy.transform.position.x, _enemy.transform.position.y - _speed, 0);
-                if (_enemy.transform.position.y < 0 - Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0)).y - _enemy.transform.localScale.y)
-                {
-                    isMove = false;
-                    DisableEnemy();
-                }
             }
         }
 
         private IEnumerator Shoot()
         {
+            _enemy.BulletSpawn.transform.LookAt(_enemy.Player.transform);
             yield return new WaitForSeconds(_enemyConfig.EnemyShootInterval);
         }
 
         private void DisableEnemy()
         {
             _enemy.EnemyObjectPool.AddToPool(_enemy);
-        }
-
-        public void GetDamage(int damage)
-        {
-            //получить урон
-            //Если хп <=0, то умереть
         }
 
         private void Death()

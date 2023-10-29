@@ -3,15 +3,16 @@ namespace DF.Input
     using DF.Data;
     using DF.ObjectPool;
     using UnityEngine;
+    using UnityEngine.UI;
 
     public class Enemy : MonoBehaviour
     {
         [SerializeField]
-        private SpriteRenderer _enemySprite = default;
-        [SerializeField]
         private EnemyConfig _enemyConfig = default;
         [SerializeField]
-        private GameObject _bullet;
+        private GameObject _bulletSpawn;
+        [SerializeField]
+        private Slider _hpBar;
 
         private CarClassConfig _carClass = default;
         private CompanyConfig _company = default;
@@ -19,12 +20,17 @@ namespace DF.Input
         private ObjectPool<Enemy> _enemyObjectPool = default;
 
         public EnemyConfig EnemyConfig => _enemyConfig;
-        public GameObject Bullet => _bullet;
+        public GameObject BulletSpawn => _bulletSpawn;
 
         public CarClassConfig CarClass => _carClass;
         public CompanyConfig Company => _company;
         public PlayerInput Player => _player;
         public ObjectPool<Enemy> EnemyObjectPool => _enemyObjectPool;
+
+        public Slider HpBar => _hpBar;
+
+        private int _hp = 0;
+        public int HP => _hp;
 
 
         public void SetData(CarClassConfig carClassConfig,
@@ -36,11 +42,24 @@ namespace DF.Input
             _company = companyconfig;
             _player = player;
             _enemyObjectPool = enemyObjectPool;
+
+            _hp = _carClass.HP;
+        }
+
+        public void UpdateHP(int value)
+        {
+            _hp = value;
         }
 
         public void UpdateVisual()
         {
-            _enemySprite.sprite = _carClass.ShipSprite;
+            UpdateHpBar(1);
+            //Изменить цвет в зависимости от компании
+        }
+        
+        public void UpdateHpBar(float value)
+        {
+            _hpBar.value = value;
         }
     }
 }

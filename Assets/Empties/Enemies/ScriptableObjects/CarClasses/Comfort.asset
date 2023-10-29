@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Comfort
   m_EditorClassIdentifier: 
   _carClass: 1
-  _shipSprite: {fileID: -535292251, guid: 1655dab38756bba4392a8f8a0c58efd4, type: 3}
+  _shipPrefab: {fileID: 6769748285513715285, guid: fc964fe86b1e2eb4d8f2bd66b741da1b, type: 3}
   _expPoint: 2
+  _HP: 7
