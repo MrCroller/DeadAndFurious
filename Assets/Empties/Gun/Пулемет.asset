@@ -16,5 +16,5 @@ MonoBehaviour:
   _damage: 1
   _attackDelay: 0.2
   _fireForse: 13
-  _bulletPrefab: {fileID: 0}
+  _bulletPrefab: {fileID: 632071427425382579, guid: 2052da00d495f2246975dc3c41602ac2, type: 3}
   _bulletTimeLife: 2

@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2646c678307294fbec58a75a266048, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
+  _hp: 100
   _speed: 3
   _movementSmoothing: 0.5
   _damage: 0.05
-  _speedAtack: 0.05
+  _speedAtackDelay: 0.05
   _defaultGun: {fileID: 11400000, guid: 1d72fca712aa4e14383da86e6c547dbb, type: 2}
+  _levelGradeMap: {fileID: 11400000, guid: 442597ca865a63c47bc8bf390aa3492e, type: 2}
+  _lvlCup: 30
