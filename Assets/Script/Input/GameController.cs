@@ -85,8 +85,6 @@ namespace DF.Input
 
         private bool _isMenuOpen = false;
         private float _saveTime;
-        private object _bulletPool;
-
         private ObjectPool<BulletInput> _bulletPool;
 
         #endregion

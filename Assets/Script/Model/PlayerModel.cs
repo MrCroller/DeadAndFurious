@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DF.Data;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 
 namespace DF.Model
@@ -21,6 +22,7 @@ namespace DF.Model
         internal readonly List<int> GradeMap;
 
         internal List<PassiveGradePlayer> Grades;
+        internal NPCConfig CurrentNPC;
         internal GunConfig CurrentGun;
 
         internal bool IsGunReload;

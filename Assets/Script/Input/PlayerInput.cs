@@ -64,6 +64,16 @@
             }
         }
 
+        public void OnTakePassiveSkillHandler(PassiveGradePlayer skill)
+        {
+            Debug.Log($"Дан скилл: {skill.Name}");
+        }
+
+        public void OnTakeNPCHandler(NPCConfig npc)
+        {
+            Debug.Log($"Дан нпс: {npc.Name}");
+        }
+
         public void OnTakeDamageHandler(int value)
         {
             OnTakeDamage?.Invoke(value);

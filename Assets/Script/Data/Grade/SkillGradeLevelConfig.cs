@@ -18,7 +18,7 @@ namespace DF.Data
 
         public PassiveGradePlayer[] AttackGrade => _attackGrade;
         public NPCConfig[] NPC => _npc;
-        public PassiveGradePlayer[] Movement => _movementGrade;
+        public PassiveGradePlayer[] MovementGrade => _movementGrade;
 
         #endregion
 
