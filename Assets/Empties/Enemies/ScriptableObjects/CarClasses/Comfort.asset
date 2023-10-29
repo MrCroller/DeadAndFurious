@@ -16,3 +16,4 @@ MonoBehaviour:
   _shipPrefab: {fileID: 2949741217870840323, guid: f3d988d3994f31644bcf768c3e009b73, type: 3}
   _expPoint: 2
   _HP: 7
+  _isShoot: 1

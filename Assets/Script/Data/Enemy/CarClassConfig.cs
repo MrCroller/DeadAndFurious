@@ -14,11 +14,14 @@ namespace DF.Data
         private int _expPoint = default;
         [SerializeField, Header("ХП")]
         private int _HP = default;
+        [SerializeField, Header("Может ли стрелять")]
+        private bool _isShoot = default;
 
         public CarClassesEnum CarClass => _carClass;
         public EnemyInput ShipPrefab => _shipPrefab;
         public int ExpPoint => _expPoint;
         public int HP => _HP;
+        public bool IsShoot => _isShoot;
     }
 
     public enum CarClassesEnum

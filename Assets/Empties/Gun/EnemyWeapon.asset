@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f967d5556f1b249b03dff219097aa6, type: 3}
+  m_Name: EnemyWeapon
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 1580639297, guid: e754885dfa2d73d46943716d2ed0d839, type: 3}
+  _attackDelay: 1.34
+  _fireForse: 1
+  _bullet: {fileID: -8629630385145992245, guid: bbddad9234ce58540889214df0c06eaf, type: 3}
+  _bulletTimeLife: 3
