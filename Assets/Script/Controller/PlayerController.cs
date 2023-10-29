@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using DF.Data;
     using DF.Input;
     using DF.Interface;
@@ -11,6 +12,7 @@
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngineTimers;
+    using static Cinemachine.DocumentationSortingAttribute;
     using PlayerInput = Input.PlayerInput;
 
     public sealed class PlayerController : IExecute, IExecuteLater, IDisposable
@@ -60,6 +62,7 @@
             Input.OnMovementEvent += OnMoveInput;
             Input.OnFireEvent     += OnFireInput;
             Input.OnTakeGun       += TakeNewGun;
+            Input.OnTakeExp       += AddExp;
 
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
         }
@@ -69,8 +72,9 @@
             Input.OnMovementEvent -= OnMoveInput;
             Input.OnFireEvent     -= OnFireInput;
             Input.OnTakeGun       -= TakeNewGun;
+            Input.OnTakeExp       -= AddExp;
 
-            foreach(var pool in _bulletPoolMap.Values)
+            foreach (var pool in _bulletPoolMap.Values)
             {
                 pool.Clear();
             }
@@ -109,6 +113,12 @@
             }
         }
 
+        public void AddExp(int count)
+        {
+            _data.XP += count;
+            ChekLevel();
+        }
+
         private void OnMoveInput(Vector2 input)
         {
             _moveInput = input;
@@ -125,7 +135,7 @@
             ResetBullet(bullet);
 
             Vector2 direction = CursorPosition - (Vector2)Input.GunObject.transform.position;
-            bullet.transform.rotation = Quaternion.Euler(direction.normalized);
+            bullet.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
 
             bullet.AddForce(direction.normalized * _data.CurrentGun.FireForse, ForceMode2D.Impulse);
 
@@ -139,6 +149,35 @@
             bullet.transform.position = Input.GunObject.transform.position;
             bullet.velocity = Vector2.zero;
             bullet.angularVelocity = 0f;
+        }
+
+        private int ChekLevel()
+        {
+            if (_data.LVL >= _data.LVLCup) return _data.LVL;
+
+            int totalRequiredExp = 0;
+            int index = 0;
+            int lvl = 0;
+
+            do
+            {
+                totalRequiredExp += _data.GradeMap[index];
+                index = index < _data.GradeMap.Count ? index++ : index;
+
+                if (_data.XP >= totalRequiredExp)
+                {
+                    lvl++;
+                }
+
+                if (_data.LVL < lvl)
+                {
+                    _data.LVL++;
+                    Input.OnLVLUp?.Invoke();
+                }
+
+            } while (_data.XP >= totalRequiredExp);
+
+            return _data.LVL;
         }
 
         #endregion

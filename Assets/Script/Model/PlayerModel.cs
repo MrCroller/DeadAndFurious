@@ -1,4 +1,7 @@
-﻿using DF.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DF.Data;
+using Unity.VisualScripting;
 
 namespace DF.Model
 {
@@ -6,17 +9,19 @@ namespace DF.Model
     {
         #region Fields
 
+        private const float MOV_SMOOTH_CUP = 0.1f;
+        public readonly float LVLCup;
+
         private readonly float _baseSpeed;
         private readonly float _baseMovementSmoothing;
         private readonly float _baseDamage;
-        private readonly float _baseSpeedAtack;
+        private readonly float _baseSpeedAtackDelay;
 
-        internal float AdditionalSpeed;
-        internal float AdditionalMovementSmoothing;
-        internal float AdditionalDamage;
-        internal float AdditionalSpeedAtack;
+        internal readonly List<int> GradeMap;
 
+        internal List<PassiveGradePlayer> Grades;
         internal GunConfig CurrentGun;
+
         internal bool IsGunReload;
 
         #endregion
@@ -24,37 +29,52 @@ namespace DF.Model
 
         #region Properties
 
+        public float HP { get; set; }
+
+        public int XP { get; set; }
+
+        public int LVL { get; set; }
+
         public float CurrentSpeed
         {
-            get => _baseSpeed + AdditionalSpeed;
+            get => _baseSpeed + Grades.Sum(item => item.Speed);
         }
 
         public float CurrentMovementSmoothing
         {
-            get => _baseMovementSmoothing + AdditionalMovementSmoothing;
+            get
+            {
+                var value = _baseMovementSmoothing - Grades.Sum(item => item.MovementSmoothing);
+                return value > MOV_SMOOTH_CUP ? value : MOV_SMOOTH_CUP;
+            }
         }
 
         public float CurrentDamage
         {
-            get => _baseDamage + AdditionalDamage + CurrentGun.Damage;
+            get => _baseDamage + Grades.Sum(item => item.Damage) + CurrentGun.Damage;
         }
 
         public float CurrentSpeedAtack
         {
-            get => _baseSpeedAtack + AdditionalSpeedAtack + CurrentGun.AttackDelay;
+            get => _baseSpeedAtackDelay - Grades.Sum(item => item.SpeedAtackDelay) + CurrentGun.AttackDelay;
         }
 
         #endregion
 
         internal PlayerModel(PlayerConfig config)
         {
+            HP = config.HP;
             _baseSpeed = config.Speed;
             _baseMovementSmoothing = config.MovementSmoothing;
             _baseDamage = config.Damage;
-            _baseSpeedAtack = config.SpeedAtack;
+            _baseSpeedAtackDelay = config.SpeedAtackDelay;
 
             CurrentGun = config.DefaultGun;
             IsGunReload = false;
+
+            GradeMap = config.LevelGradeMap.Map.ToList();
+            Grades = new();
+            LVLCup = config.LevelCup;
         }
     }
 }
