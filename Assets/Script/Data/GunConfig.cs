@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DF.Input;
+using UnityEngine;
 
 namespace DF.Data
 {
@@ -10,14 +11,12 @@ namespace DF.Data
 
         [Tooltip("Спрайт оружия")]
         [SerializeField] private Sprite _sprite;
-        [Tooltip("Урон")]
-        [SerializeField] private float _damage;
         [Tooltip("Задержка между выстрелами")]
         [SerializeField, Range(0f, 15f)] private float _attackDelay;
         [Tooltip("Сила выстрела")]
         [SerializeField] private float _fireForse;
         [Tooltip("Префаб пули")]
-        [SerializeField] private Rigidbody2D _bulletPrefab;
+        [SerializeField] private Bullet _bullet;
         [Tooltip("Время жизни пули")]
         [SerializeField] private float _bulletTimeLife;
 
@@ -27,10 +26,9 @@ namespace DF.Data
         #region Properties
 
         public Sprite Sprite => _sprite;
-        public float Damage => _damage;
         public float AttackDelay => _attackDelay;
         public float FireForse => _fireForse;
-        public Rigidbody2D BulletPrefab => _bulletPrefab;
+        public Bullet Bullet => _bullet;
         public float BulletLifeTime => _bulletTimeLife;
 
         #endregion
