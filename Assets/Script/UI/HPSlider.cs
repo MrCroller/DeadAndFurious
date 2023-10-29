@@ -78,5 +78,10 @@ namespace DF.UI
                 }, _animTime);
             }
         }
+
+        public void SetMaxHP()
+        {
+            _hpBar.value = 1;
+        }
     }
 }

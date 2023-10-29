@@ -25,6 +25,8 @@ namespace DF.Input
         private SpriteRenderer _shipBorder;
         [SerializeField]
         private SpriteRenderer _managerSprite;
+        [SerializeField]
+        private HPSlider _hpSlider = default;
 
         private CarClassConfig _carClass = default;
         private CompanyConfig _company = default;
@@ -73,6 +75,7 @@ namespace DF.Input
 
             HP = _carClass.HP;
             MAXHP = _carClass.HP;
+            _hpSlider.SetMaxHP();
             _enemyController.Init(this);
         }
 

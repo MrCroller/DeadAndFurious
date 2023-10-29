@@ -383,6 +383,7 @@ MonoBehaviour:
   _bulletSpawn: {fileID: 7211908889342494888}
   _shipBorder: {fileID: 4577609457146253608}
   _managerSprite: {fileID: 1432897857511065325}
+  _hpSlider: {fileID: 6204177017340465443}
 --- !u!1 &9042358189199005995
 GameObject:
   m_ObjectHideFlags: 0

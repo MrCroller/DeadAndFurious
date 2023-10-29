@@ -5,7 +5,6 @@
     using DF.ObjectPool;
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
 
     public class EnemyController : MonoBehaviour
@@ -51,9 +50,10 @@
             }
             if(collision.TryGetComponent<BulletInput>(out BulletInput bullet))
             {
-                if(bullet._bulletSource == BulletSource.PlayerBullet)
+                if(bullet.bulletSource == BulletSource.PlayerBullet)
                 {
                     GetDamage(bullet.Damage);
+                    bullet.bulletPool.AddToPool(bullet);
                 }
             }
         }
@@ -84,8 +84,9 @@
         private IEnumerator Shoot()
         {
             BulletInput bullet = _bulletPool.GetObjectFromPool(_enemy.EnemyConfig.Weapon.Bullet, _enemy.EnemyConfig.Weapon.BulletLifeTime);
+            bullet.bulletPool = _bulletPool;
             bullet.transform.position = _enemy.BulletSpawn.position;
-            bullet._bulletSource = BulletSource.EnemyBullet;
+            bullet.bulletSource = BulletSource.EnemyBullet;
             Rigidbody2D bulletRb = bullet.Rigidbody;
             Vector2 direction = _enemy.Player.gameObject.transform.position - _enemy.BulletSpawn.transform.position;
             bulletRb.AddForce(direction * _enemy.EnemyConfig.Weapon.FireForse, ForceMode2D.Impulse);
