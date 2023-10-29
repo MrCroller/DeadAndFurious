@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8f68f38a196c54cb4f8a2af4a2b8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetSceneOpen: GameScene
+  _targetSceneOpen: CutScene
   _button: {fileID: 380278294}
 --- !u!1 &391500520
 GameObject:
