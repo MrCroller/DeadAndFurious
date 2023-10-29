@@ -8,12 +8,12 @@ namespace DF.Data
     [CreateAssetMenu(fileName = nameof(EnemyConfig), menuName = "DF/Configs/Enemy/Enemy")]
     public class EnemyConfig : ScriptableObject
     {
+        [SerializeField, Header("Weapon")]
+        private GunConfig _weapon = default;
         [SerializeField, Min(0)]
         private float _enemySpeed = default;
-        [SerializeField, Min(0), Header("Интервал между выстрелами врага (в секундах)")]
-        private float _enemyShootInterval = default;
 
         public float EnemySpeed => _enemySpeed;
-        public float EnemyShootInterval => _enemyShootInterval;
+        public GunConfig Weapon => _weapon;
     }
 }

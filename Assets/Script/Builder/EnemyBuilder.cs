@@ -5,6 +5,7 @@ namespace DF.Builder
     using DF.Data;
     using DF.Input;
     using DF.ObjectPool;
+    using System.Collections.Generic;
     using UnityEngine;
     /// <summary>
     /// Билдер врагов
@@ -16,12 +17,15 @@ namespace DF.Builder
         private CarClassConfig _carClassConfig = default;
 
         private Transform _objectParent = default;
-        private ObjectPool<EnemyInput> _enemyObjectPool = default;
 
-        public EnemyBuilder(Transform objectParent)
+        private ObjectPool<EnemyInput> _enemyObjectPool = default;
+        private ObjectPool<BulletInput> _bulletObjectPool = default;
+
+        public EnemyBuilder(Transform objectParent, ObjectPool<BulletInput> bulletObjectPool)
         {
             _objectParent = objectParent;
             _enemyObjectPool = new ObjectPool<EnemyInput>(_objectParent);
+            _bulletObjectPool = bulletObjectPool;
         }
 
         public EnemyBuilder Reset()
@@ -52,7 +56,8 @@ namespace DF.Builder
         public EnemyInput Build(Vector3 position, PlayerInput player)
         {
             EnemyInput enemy = _enemyObjectPool.GetObjectFromPool(_enemyPrefab);
-            enemy.SetData(_carClassConfig, _companyConfig, player, _enemyObjectPool);
+            enemy.transform.position = new Vector3(position.x, position.y - enemy.transform.localScale.y, 0);
+            enemy.SetData(_carClassConfig, _companyConfig, player, _enemyObjectPool, _bulletObjectPool);
             return enemy;
         }
     }

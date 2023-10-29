@@ -3,8 +3,10 @@ namespace DF.Controller
     using DF.Builder;
     using DF.Data;
     using DF.Input;
+    using DF.ObjectPool;
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngineTimers;
 
@@ -22,16 +24,22 @@ namespace DF.Controller
         private EnemyBuilder _enemyBuilder = default;
 
         private BoxCollider2D _spawnZoneCollider = default;
+        private ObjectPool<BulletInput> _bulletSpawnZone = default;
+
         private float _minZone = 0;
         private float _maxZone = 0;
 
-        public EnemySpawnController(EnemySpawnConfig enemySpawnConfig, PlayerInput player, Transform parent, Transform enemySpawnZone)
+        public EnemySpawnController(EnemySpawnConfig enemySpawnConfig, 
+            PlayerInput player, 
+            Transform parent, 
+            Transform enemySpawnZone, 
+            ObjectPool<BulletInput> bulletObjectPool)
         {
             _enemySpawnZone = enemySpawnZone;
             _enemyParent = parent;
             _player = player;
             _enemySpawnConfig = enemySpawnConfig;            
-            _enemyBuilder = new EnemyBuilder(_enemyParent);
+            _enemyBuilder = new EnemyBuilder(_enemyParent, bulletObjectPool);
             _spawnZoneCollider = _enemySpawnZone.GetComponent<BoxCollider2D>();
             _minZone = _spawnZoneCollider.bounds.min.x;
             _maxZone = _spawnZoneCollider.bounds.max.x;
@@ -83,7 +91,6 @@ namespace DF.Controller
                 .WithCompany(company)
                 .Build(position, _player);
 
-            enemy.transform.position = new Vector3(position.x, position.y - enemy.transform.localScale.y, 0);
             enemy.UpdateVisual();
         }
 

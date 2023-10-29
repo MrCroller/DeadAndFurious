@@ -33,7 +33,7 @@ namespace DF.Input
         [SerializeField]
         private Transform _enemyParent = default;
         [SerializeField]
-        private BulletInput _bulletPrefab = default;
+        private Transform _bulletSpawnZone = default;
         [SerializeField] private OptionInput optionMenu;
         [SerializeField] private Fader faderOption;
         [SerializeField]
@@ -76,7 +76,7 @@ namespace DF.Input
         #region Controllers
 
         private EnemySpawnController _enemySpawnController = default;
-        private Dictionary<GunConfig, ObjectPool<Rigidbody2D>> _bulletPoolMap = default;
+        private ObjectPool<BulletInput> _bulletPool = default;
         private PlayerController _playerController = default;
 
         private List<IExecute> _executes;
@@ -92,7 +92,8 @@ namespace DF.Input
 
         private void Awake()
         {
-            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig, player, _enemyParent, _enemySpawnZone);
+            _bulletPool = new ObjectPool<BulletInput>(_bulletSpawnZone);
+            _enemySpawnController = new EnemySpawnController(_enemySpawnConfig, player, _enemyParent, _enemySpawnZone, _bulletPool);
             _playerController = new PlayerController(player, playerConfig, bulletParent);
 
             _executes = new() 
