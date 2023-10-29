@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82756c5e18dd524e889fd79fa9bf23d, type: 3}
   m_Name: Luber
   m_EditorClassIdentifier: 
-  _company: 1
+  _company: 2
+  _companyColor: {r: 0, g: 0, b: 0, a: 1}
+  _managerSprite: {fileID: 464855596, guid: 66e7eef48ba7b7a4ca3eeb27a45a84c3, type: 3}
