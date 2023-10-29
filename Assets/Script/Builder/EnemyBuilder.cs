@@ -11,17 +11,17 @@ namespace DF.Builder
     /// </summary>
     internal class EnemyBuilder
     {
-        private Enemy _enemyPrefab = default;
+        private EnemyInput _enemyPrefab = default;
         private CompanyConfig _companyConfig = default;
         private CarClassConfig _carClassConfig = default;
 
         private Transform _objectParent = default;
-        private ObjectPool<Enemy> _enemyObjectPool = default;
+        private ObjectPool<EnemyInput> _enemyObjectPool = default;
 
         public EnemyBuilder(Transform objectParent)
         {
             _objectParent = objectParent;
-            _enemyObjectPool = new ObjectPool<Enemy>(_objectParent);
+            _enemyObjectPool = new ObjectPool<EnemyInput>(_objectParent);
         }
 
         public EnemyBuilder Reset()
@@ -32,7 +32,7 @@ namespace DF.Builder
             return this;
         }
 
-        public EnemyBuilder WithRootPrefab(Enemy prefab)
+        public EnemyBuilder WithRootPrefab(EnemyInput prefab)
         {
             _enemyPrefab = prefab;
             return this;
@@ -49,9 +49,9 @@ namespace DF.Builder
             _carClassConfig = carClassConfig;
             return this;
         }
-        public Enemy Build(Vector3 position, PlayerInput player)
+        public EnemyInput Build(Vector3 position, PlayerInput player)
         {
-            Enemy enemy = _enemyObjectPool.GetObjectFromPool(_enemyPrefab);
+            EnemyInput enemy = _enemyObjectPool.GetObjectFromPool(_enemyPrefab);
             enemy.SetData(_carClassConfig, _companyConfig, player, _enemyObjectPool);
             return enemy;
         }

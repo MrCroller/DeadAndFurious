@@ -14,16 +14,27 @@ namespace DF.Controller
         private PlayerInput _player = default;
         private Transform _enemyParent = default;
         private Coroutine _enemySpawnCoroutine = default;
+
+        private Transform _enemySpawnZone = default;
+
         private bool GameEnd = false;
 
         private EnemyBuilder _enemyBuilder = default;
 
-        public EnemySpawnController(EnemySpawnConfig enemySpawnConfig, PlayerInput player, Transform parent)
+        private BoxCollider2D _spawnZoneCollider = default;
+        private float _minZone = 0;
+        private float _maxZone = 0;
+
+        public EnemySpawnController(EnemySpawnConfig enemySpawnConfig, PlayerInput player, Transform parent, Transform enemySpawnZone)
         {
+            _enemySpawnZone = enemySpawnZone;
             _enemyParent = parent;
             _player = player;
             _enemySpawnConfig = enemySpawnConfig;            
             _enemyBuilder = new EnemyBuilder(_enemyParent);
+            _spawnZoneCollider = _enemySpawnZone.GetComponent<BoxCollider2D>();
+            _minZone = _spawnZoneCollider.bounds.min.x;
+            _maxZone = _spawnZoneCollider.bounds.max.x;
         }
 
         /// <summary>
@@ -40,6 +51,7 @@ namespace DF.Controller
 
         private IEnumerator EnemySpawnCoroutine()
         {
+            bool _firstPartScreen = true;
             while (!GameEnd)
             {
                 yield return new WaitForSeconds(_enemySpawnConfig.SpawnTimer);
@@ -47,8 +59,14 @@ namespace DF.Controller
                 int randomCarClassID = UnityEngine.Random.Range(0, _enemySpawnConfig.CarClasses.CarClasses.Count);
                 int randomCompanyID = UnityEngine.Random.Range(0, _enemySpawnConfig.Companies.Companies.Count);
 
-                Vector3 randomSpawnPosition = Camera.main.ScreenToWorldPoint(
-                    new Vector3(UnityEngine.Random.Range(0f, Screen.width), Screen.height, 0));
+                float minForSpawn = _firstPartScreen ? _minZone : (_maxZone + _minZone) / 2;
+                float maxForSpawn = _firstPartScreen ? (_maxZone + _minZone) / 2 : _maxZone;
+
+                Vector3 randomSpawnPosition = new Vector3(UnityEngine.Random.Range(minForSpawn, maxForSpawn), 
+                    _spawnZoneCollider.bounds.min.y, 0);
+
+                _firstPartScreen = !_firstPartScreen;
+
 
                 SpawnEnemy(randomSpawnPosition, 
                     _enemySpawnConfig.CarClasses.CarClasses[randomCarClassID],
@@ -58,9 +76,9 @@ namespace DF.Controller
 
         private void SpawnEnemy(Vector3 position, CarClassConfig carClass, CompanyConfig company)
         {
-            Enemy enemy = _enemyBuilder
+            EnemyInput enemy = _enemyBuilder
                 .Reset()
-                .WithRootPrefab(_enemySpawnConfig.Enemy)
+                .WithRootPrefab(carClass.ShipPrefab)
                 .WithCarClass(carClass)
                 .WithCompany(company)
                 .Build(position, _player);

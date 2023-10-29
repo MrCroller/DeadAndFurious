@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using DF.Data;
+    using DF.Extension;
     using DF.Input;
     using DF.Interface;
     using DF.Model;
@@ -11,6 +13,7 @@
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngineTimers;
+    using static Cinemachine.DocumentationSortingAttribute;
     using PlayerInput = Input.PlayerInput;
 
     public sealed class PlayerController : IExecute, IExecuteLater, IDisposable
@@ -26,6 +29,7 @@
         private Vector2 m_Velocity = Vector2.zero;
         private float _angleRotaitGun;
         private bool _pressFlag = false;
+        private bool _soundFlag = false;
 
         private Dictionary<GunConfig, ObjectPool<Rigidbody2D>> _bulletPoolMap;
         private Transform _bulletParent;
@@ -60,6 +64,8 @@
             Input.OnMovementEvent += OnMoveInput;
             Input.OnFireEvent     += OnFireInput;
             Input.OnTakeGun       += TakeNewGun;
+            Input.OnTakeExp       += AddExp;
+            Input.OnTakeDamage    += TakeDamage;
 
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
         }
@@ -69,8 +75,10 @@
             Input.OnMovementEvent -= OnMoveInput;
             Input.OnFireEvent     -= OnFireInput;
             Input.OnTakeGun       -= TakeNewGun;
+            Input.OnTakeExp       -= AddExp;
+            Input.OnTakeDamage    -= TakeDamage;
 
-            foreach(var pool in _bulletPoolMap.Values)
+            foreach (var pool in _bulletPoolMap.Values)
             {
                 pool.Clear();
             }
@@ -96,16 +104,46 @@
             Input.GunObject.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
 
             OnFire();
+
+            if(!_soundFlag && _moveInput != Vector2.zero)
+            {
+                _soundFlag = true;
+                Input.PlaySound(Input.SwimSound.RandomElement());
+                TimersPool.GetInstance().StartTimer(() => _soundFlag = false, Input.SwimDelay);
+            }
         }
 
-        public void TakeNewGun(GunConfig gun)
+        private void TakeNewGun(GunConfig gun)
         {
             _data.CurrentGun = gun;
+
             Input.GunObject.sprite = _data.CurrentGun.Sprite;
+            Input.PlaySound(Input.SwapGunSound);
 
             if (!_bulletPoolMap.ContainsKey(gun))
             {
                 _bulletPoolMap.Add(gun, new(_bulletParent));
+            }
+        }
+
+        private void AddExp(int count)
+        {
+            _data.XP += count;
+            ChekLevel();
+        }
+
+        private void TakeDamage(int value)
+        {
+            _data.HP -= value;
+
+            if (_data.HP < 0)
+            {
+                Input.OnPlayerDeath.Invoke();
+                Input.OnHPChange.Invoke(0f, _data.MAXHP);
+            }
+            else
+            {
+                Input.OnHPChange.Invoke(_data.HP, _data.MAXHP);
             }
         }
 
@@ -121,11 +159,11 @@
             if (_data.IsGunReload || !_pressFlag) return;
             _data.IsGunReload = true;
 
-            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.BulletPrefab, _data.CurrentGun.BulletLifeTime);
+            var bullet = _bulletPoolMap[_data.CurrentGun].GetObjectFromPool(_data.CurrentGun.Bullet.Rigidbody, _data.CurrentGun.BulletLifeTime);
             ResetBullet(bullet);
 
             Vector2 direction = CursorPosition - (Vector2)Input.GunObject.transform.position;
-            bullet.transform.rotation = Quaternion.Euler(direction.normalized);
+            bullet.transform.rotation = Quaternion.AngleAxis(_angleRotaitGun - 90f, Vector3.forward);
 
             bullet.AddForce(direction.normalized * _data.CurrentGun.FireForse, ForceMode2D.Impulse);
 
@@ -139,6 +177,35 @@
             bullet.transform.position = Input.GunObject.transform.position;
             bullet.velocity = Vector2.zero;
             bullet.angularVelocity = 0f;
+        }
+
+        private int ChekLevel()
+        {
+            if (_data.LVL >= _data.LVLCup) return _data.LVL;
+
+            int totalRequiredExp = 0;
+            int index = 0;
+            int lvl = 0;
+
+            do
+            {
+                totalRequiredExp += _data.GradeMap[index];
+                index = index < _data.GradeMap.Count ? index++ : index;
+
+                if (_data.XP >= totalRequiredExp)
+                {
+                    lvl++;
+                }
+
+                if (_data.LVL < lvl)
+                {
+                    _data.LVL++;
+                    Input.OnLVLUp?.Invoke();
+                }
+
+            } while (_data.XP >= totalRequiredExp);
+
+            return _data.LVL;
         }
 
         #endregion

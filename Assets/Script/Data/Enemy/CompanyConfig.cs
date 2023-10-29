@@ -7,8 +7,14 @@ namespace DF.Data
     {
         [SerializeField]
         private CompanyEnum _company = default;
+        [SerializeField]
+        private Color _companyColor = default;
+        [SerializeField]
+        private Sprite _managerSprite = default;
 
         public CompanyEnum Company => _company;
+        public Color CompanyColor => _companyColor; 
+        public Sprite ManagerSprite => _managerSprite;  
     }
 
     public enum CompanyEnum

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82756c5e18dd524e889fd79fa9bf23d, type: 3}
   m_Name: Youndex
   m_EditorClassIdentifier: 
-  _company: 2
+  _company: 0
+  _companyColor: {r: 0.7890901, g: 0.8490566, b: 0, a: 1}
+  _managerSprite: {fileID: -658500076, guid: 66e7eef48ba7b7a4ca3eeb27a45a84c3, type: 3}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2739141618032915672}
   - component: {fileID: 632071427425382579}
   - component: {fileID: 4393724492212854170}
+  - component: {fileID: 8434930132564797612}
   m_Layer: 8
   m_Name: "\u041F\u0443\u0448\u043A\u0430Bullet"
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -77483524, guid: b1a1eb822bfe34948af345c4130515e4, type: 3}
   m_Color: {r: 0.9339623, g: 0.5154415, b: 0.5154415, a: 1}
   m_FlipX: 0
@@ -148,3 +149,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15854369
+--- !u!114 &8434930132564797612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4420537273497334797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd37d4d2eed61f47aa5507e76c8c469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 632071427425382579}
+  _damage: 10

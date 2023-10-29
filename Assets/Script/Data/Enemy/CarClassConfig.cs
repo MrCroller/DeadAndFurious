@@ -1,5 +1,6 @@
 namespace DF.Data
 {
+    using DF.Input;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = nameof(CarClassConfig), menuName = "DF/Configs/Enemy/CarClass")]
@@ -8,13 +9,16 @@ namespace DF.Data
         [SerializeField]
         private CarClassesEnum _carClass = default;
         [SerializeField]
-        private Sprite _shipSprite = default;
+        private EnemyInput _shipPrefab = default;
         [SerializeField, Header("Очки опыта")]
         private int _expPoint = default;
+        [SerializeField, Header("ХП")]
+        private int _HP = default;
 
         public CarClassesEnum CarClass => _carClass;
-        public Sprite ShipSprite => _shipSprite;
+        public EnemyInput ShipPrefab => _shipPrefab;
         public int ExpPoint => _expPoint;
+        public int HP => _HP;
     }
 
     public enum CarClassesEnum

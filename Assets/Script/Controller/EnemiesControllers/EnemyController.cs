@@ -14,7 +14,7 @@
         public static event Action<int> OnDeath = delegate { };
 
         [SerializeField]
-        private Enemy _enemy = default;
+        private EnemyInput _enemy = default;
         private bool isMove = true;
 
         private float _speed;
@@ -28,33 +28,54 @@
             //StartCoroutine(Shoot());
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.TryGetComponent<EnemyDeadZone>(out EnemyDeadZone findedCollider))
+            {
+                isMove = false;
+                DisableEnemy();
+            }
+            if(collision.TryGetComponent<BulletInput>(out BulletInput bullet))
+            {
+                if(bullet._bulletSource == BulletSource.PlayerBullet)
+                {
+                    GetDamage(bullet.Damage);
+                }
+            }
+        }
+
+        private void GetDamage(int damage)
+        {
+            _enemy.HP -= damage;
+
+            if (_enemy.HP <= 0)
+            {
+                _enemy.OnHPChange.Invoke(0, _enemy.MAXHP);
+                Death();
+            }
+            else
+            {
+                _enemy.OnHPChange.Invoke(_enemy.HP, _enemy.MAXHP);
+            }
+        }
+
         private void FixedUpdate()
         {
             if (isMove)
             {
                 _enemy.transform.position = new Vector3(_enemy.transform.position.x, _enemy.transform.position.y - _speed, 0);
-                if (_enemy.transform.position.y < 0 - Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0)).y - _enemy.transform.localScale.y)
-                {
-                    isMove = false;
-                    DisableEnemy();
-                }
             }
         }
 
         private IEnumerator Shoot()
         {
+            _enemy.BulletSpawn.transform.LookAt(_enemy.Player.transform);
             yield return new WaitForSeconds(_enemyConfig.EnemyShootInterval);
         }
 
         private void DisableEnemy()
         {
             _enemy.EnemyObjectPool.AddToPool(_enemy);
-        }
-
-        public void GetDamage(int damage)
-        {
-            //получить урон
-            //Если хп <=0, то умереть
         }
 
         private void Death()
